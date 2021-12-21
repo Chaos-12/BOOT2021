@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Pizza</title>
+    <link rel="stylesheet" href="css/form.css">
+
+</head>
+<body>
+    <header>Add Pizza</header>
+    <form>
+        <p>Name:</p>
+        <input type="text" name="name" placeholder="Name of the pizza" required>
+
+        <p>Description:</p>
+        <textarea rows='6' placeholder="Description of the pizza" required></textarea>
+        
+        <p>Ingredients:</p>
+        <section class="flex-container columns2">
+            <section class="column1">
+                <p>Mass:</p>
+                <section class="block-container boxed">
+                    <input type="radio" name="mass" value="Regular mass" checked="true">
+                    <label for="mass">Regular mass</label><br>
+                    <input type="radio" name="mass" value="Slim mass">
+                    <label for="mass">Slim mass</label><br>
+                    <input type="radio" name="mass" value="Vegan mass">
+                    <label for="mass">Vegan mass</label>
+                </section>
+            </section>
+            <p>Sauce:</p>
+            <section class="block-container boxed">
+                <input type="radio" name="sauce" value="Tomato sauce" checked="true">
+                <label for="sauce">Tomato sauce</label><br>
+                <input type="radio" name="sauce" value="White sauce">
+                <label for="sauce">White sauce</label><br>
+                <input type="radio" name="sauce" value="Oil sauce">
+                <label for="sauce">Oil sauce</label>
+            </section>
+
+            <p>Meat:</p>
+            <section class="block-container">
+                <input type="checkbox" name="meat" value="Beef">
+                <label for="meat">Beef</label><br>
+                <input type="checkbox" name="meat" value="Pork">
+                <label for="meat">Pork</label><br>
+                <input type="checkbox" name="meat" value="Chicken">
+                <label for="meat">Chicken</label><br>
+                <input type="checkbox" name="meat" value="Salami">
+                <label for="meat">Salami</label>
+            </section>
+            
+            <p>Fish:</p>
+            <section class="block-container">
+                <input type="checkbox" name="fish" value="Tuna">
+                <label for="fish">Tuna</label><br>
+                <input type="checkbox" name="fish" value="Salmon">
+                <label for="fish">Salmon</label><br>
+                <input type="checkbox" name="fish" value="Anchovies">
+                <label for="fish">Anchovies</label>
+            </section>
+
+            <p>Vegetables:</p>
+            <section class="block-container">
+                <input type="checkbox" name="vegetables" value="Lettuce">
+                <label for="vegetables">Lettuce</label><br>
+                <input type="checkbox" name="vegetables" value="Tomato">
+                <label for="vegetables">Tomato</label><br>
+                <input type="checkbox" name="vegetables" value="White Onion">
+                <label for="vegetables">White Onion</label><br>
+                <input type="checkbox" name="vegetables" value="Red Onion">
+                <label for="vegetables">Red Onion</label><br>
+                <input type="checkbox" name="vegetables" value="Corn">
+                <label for="vegetables">Corn</label><br>
+                <input type="checkbox" name="vegetables" value="Apple">
+                <label for="vegetables">Apple</label><br>
+                <input type="checkbox" name="vegetables" value="Pineapple">
+                <label for="vegetables">Pineapple</label><br>
+            </section>
+        </section>
+
+        <p>Picture:</p>
+        <input type="file" value="Upload Picture">
+        <br>
+
+        <input type="submit" value="Submit pizza">
+        <input type="reset" value="Reset">
+    </form>
+</body>
+</html>

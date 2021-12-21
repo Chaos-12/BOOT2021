@@ -1,0 +1,10 @@
+
+body {
+    font-size: 10pt;
+}
+input[type="button"] {
+    display: none;
+}
+input {
+    border-style: none;
+}

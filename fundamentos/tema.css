@@ -1,0 +1,52 @@
+body {
+    background-color: rgb(189, 238, 255);
+}
+
+.conclase {
+    color: yellow;
+}
+
+#identificador {
+    color: red;
+    margin-block-start: 2em;
+}
+
+p {
+    color: blue;
+}
+
+body > p {
+    color: red;
+}
+
+h1 + p {
+    font-size: 2em;
+}
+
+.formulario p {
+    color: magenta;
+}
+
+.formulario h1 {
+    font-style: italic;
+}
+
+.listado p {
+    color: aquamarine;
+}
+
+.listado h1 {
+    font-style: oblique;
+}
+
+/* @media print {
+    body {
+        font-size: 10pt;
+    }
+    input[type="button"] {
+        display: none;
+    }
+    input {
+        border-style: none;
+    }
+} */
