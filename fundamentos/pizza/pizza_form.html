@@ -10,82 +10,93 @@
 <body>
     <header>Add Pizza</header>
     <form>
-        <p>Name:</p>
+        <fieldset>
+        <legend>Name:</legend>
         <input type="text" name="name" placeholder="Name of the pizza" required>
-
-        <p>Description:</p>
-        <textarea rows='6' placeholder="Description of the pizza" required></textarea>
-        
-        <p>Ingredients:</p>
-        <section class="flex-container columns2">
-            <section class="column1">
-                <p>Mass:</p>
-                <section class="block-container boxed">
-                    <input type="radio" name="mass" value="Regular mass" checked="true">
-                    <label for="mass">Regular mass</label><br>
-                    <input type="radio" name="mass" value="Slim mass">
-                    <label for="mass">Slim mass</label><br>
-                    <input type="radio" name="mass" value="Vegan mass">
-                    <label for="mass">Vegan mass</label>
-                </section>
+        </fieldset>
+        <fieldset>
+            <legend>Description:</legend>
+            <textarea rows='6' placeholder="Description of the pizza" required></textarea>
+        </fieldset>
+        <fieldset class="flex-container">
+            <legend>Ingredients:</legend>
+            <section class="block-container subbox columns1">
+                <p class ="header-container">Mass:</p>
+                <input type="radio" name="mass" value="Slim">
+                <label for="mass">Slim</label><br>
+                <input type="radio" name="mass" value="Regular" checked="true">
+                <label for="mass">Regular</label><br>
+                <input type="radio" name="mass" value="Thick">
+                <label for="mass">Thick</label><br>
+                <input type="radio" name="mass" value="Gluten-free">
+                <label for="mass">Gluten-free</label>
             </section>
-            <p>Sauce:</p>
-            <section class="block-container boxed">
+            <section class="block-container boxed columns1">
+                <p class="header-container">Base:</p>
                 <input type="radio" name="sauce" value="Tomato sauce" checked="true">
-                <label for="sauce">Tomato sauce</label><br>
+                <label for="sauce">Tomato</label><br>
                 <input type="radio" name="sauce" value="White sauce">
-                <label for="sauce">White sauce</label><br>
+                <label for="sauce">White</label><br>
                 <input type="radio" name="sauce" value="Oil sauce">
-                <label for="sauce">Oil sauce</label>
+                <label for="sauce">Olive oil</label>
             </section>
+            <section>
+                <input id="newIngredient" list="ingredients" placeholder="New Ingredient...">
+                <datalist id="ingredients">
+                    <option>Pepperoni</option>
+                    <option>Chicken</option>
+                    <option>Pulled Pork</option>
+                    <option>Tuna</option>
+                    <option>Salmon</option>
+                    <option>Olives</option>
+                    <option>Tomato</option>
+                    <option>BBQ Sauce</option>
+                    <option>Carbonara Sauce</option>
+                    <option>Mozzarella Cheese</option>
+                    <option>Provolone Cheese</option>
+                    <option>Blue Cheese</option>
+                </datalist>
+                <input type="button" onclick="createButtonIngredient()" value="Add">
+                <input type="button" onclick="removeChildsFrom('ingredientList')" value="Remove All">
+                <section id="ingredientList"></section>
+            </section>
+        </fieldset>
 
-            <p>Meat:</p>
-            <section class="block-container">
-                <input type="checkbox" name="meat" value="Beef">
-                <label for="meat">Beef</label><br>
-                <input type="checkbox" name="meat" value="Pork">
-                <label for="meat">Pork</label><br>
-                <input type="checkbox" name="meat" value="Chicken">
-                <label for="meat">Chicken</label><br>
-                <input type="checkbox" name="meat" value="Salami">
-                <label for="meat">Salami</label>
-            </section>
-            
-            <p>Fish:</p>
-            <section class="block-container">
-                <input type="checkbox" name="fish" value="Tuna">
-                <label for="fish">Tuna</label><br>
-                <input type="checkbox" name="fish" value="Salmon">
-                <label for="fish">Salmon</label><br>
-                <input type="checkbox" name="fish" value="Anchovies">
-                <label for="fish">Anchovies</label>
-            </section>
-
-            <p>Vegetables:</p>
-            <section class="block-container">
-                <input type="checkbox" name="vegetables" value="Lettuce">
-                <label for="vegetables">Lettuce</label><br>
-                <input type="checkbox" name="vegetables" value="Tomato">
-                <label for="vegetables">Tomato</label><br>
-                <input type="checkbox" name="vegetables" value="White Onion">
-                <label for="vegetables">White Onion</label><br>
-                <input type="checkbox" name="vegetables" value="Red Onion">
-                <label for="vegetables">Red Onion</label><br>
-                <input type="checkbox" name="vegetables" value="Corn">
-                <label for="vegetables">Corn</label><br>
-                <input type="checkbox" name="vegetables" value="Apple">
-                <label for="vegetables">Apple</label><br>
-                <input type="checkbox" name="vegetables" value="Pineapple">
-                <label for="vegetables">Pineapple</label><br>
-            </section>
-        </section>
-
-        <p>Picture:</p>
-        <input type="file" value="Upload Picture">
-        <br>
+        <fieldset>
+            <legend>Picture:</legend>
+            <input id="pictureSelector" type="file" name="Upload Picture">
+            <img id="previewPicture">
+        </fieldset>
 
         <input type="submit" value="Submit pizza">
         <input type="reset" value="Reset">
     </form>
 </body>
+<script>
+    function createButtonIngredient(){
+        let ingredient = document.getElementById('newIngredient').value;
+        if (0 !== ingredient.length) {
+            let button = document.createElement("button");
+            button.type="button";
+            button.classList="";
+            button.innerText = ingredient;
+            button.value = ingredient;
+            button.onclick = "markButton()";
+            document.getElementById('ingredientList').appendChild(button);
+        }
+        document.getElementById('newIngredient').value=null;
+    }
+    function markButton(){
+        console.log('hey');
+        if (this.classList.contains('markedButton')){
+            this.classList.remove('markedButton');
+        } else {
+            this.classList.add('markedButton');
+        }
+    }
+    function removeChildsFrom(parentId) {
+        let parent = document.getElementById(parentId);
+        
+    }
+</script>
 </html>
