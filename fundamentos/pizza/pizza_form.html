@@ -12,16 +12,16 @@
     <form>
         <fieldset>
         <legend>Name:</legend>
-        <input type="text" name="name" placeholder="Name of the pizza" required>
+        <input class="flex-width" type="text" name="name" placeholder="Name of the pizza" required>
         </fieldset>
         <fieldset>
             <legend>Description:</legend>
             <textarea rows='6' placeholder="Description of the pizza" required></textarea>
         </fieldset>
-        <fieldset class="flex-container">
+        <fieldset class="flex-container centered-items">
             <legend>Ingredients:</legend>
-            <section class="block-container subbox columns1">
-                <p class ="header-container">Mass:</p>
+            <section class="block-container columns1">
+                <p>Mass:</p>
                 <input type="radio" name="mass" value="Slim">
                 <label for="mass">Slim</label><br>
                 <input type="radio" name="mass" value="Regular" checked="true">
@@ -31,7 +31,7 @@
                 <input type="radio" name="mass" value="Gluten-free">
                 <label for="mass">Gluten-free</label>
             </section>
-            <section class="block-container boxed columns1">
+            <section class="block-container columns1">
                 <p class="header-container">Base:</p>
                 <input type="radio" name="sauce" value="Tomato sauce" checked="true">
                 <label for="sauce">Tomato</label><br>
@@ -41,7 +41,7 @@
                 <label for="sauce">Olive oil</label>
             </section>
             <section>
-                <input id="newIngredient" list="ingredients" placeholder="New Ingredient...">
+                <input id="newIngredient" list="ingredients" placeholder="Select Ingredient...">
                 <datalist id="ingredients">
                     <option>Pepperoni</option>
                     <option>Chicken</option>
@@ -78,7 +78,7 @@
         if (0 !== ingredient.length) {
             let button = document.createElement("button");
             button.type="button";
-            button.classList="";
+            button.classList="ingredient-button";
             button.innerText = ingredient;
             button.value = ingredient;
             button.onclick = "markButton()";
@@ -96,7 +96,9 @@
     }
     function removeChildsFrom(parentId) {
         let parent = document.getElementById(parentId);
-        
+        while(0 < parent.childElementCount){
+            parent.removeChild(parent.children[0]);
+        }
     }
 </script>
 </html>

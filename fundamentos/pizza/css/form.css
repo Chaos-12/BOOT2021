@@ -1,10 +1,12 @@
 :root {
-    --color-background: rgba(255, 0, 0, 0.4);
+    --color-background-alpha: rgba(255, 0, 0, 0.4);
+    --color-background: red;
+    --color-border: rgb(78, 0, 0);
     --color-contrast: rgb(255,255,255);
 }
 
 form {
-    background-color: var(--color-background);
+    background-color: var(--color-background-alpha);
     padding-top: 10pt;
     padding-bottom: 10pt;
     padding-left: 5pt;
@@ -13,29 +15,38 @@ form {
     margin-right: 10%;
 }
 
-form > p {
-    background-color: var(--color-background);
-}
-
 header {
     font-size: large;
 }
 
-section > p + section {
-    border-style: dotted;
+fieldset {
+    background-color: var(--color-background-alpha);
+    border-color: var(--color-border);
+    border-radius: 5%;
 }
 
-.markedButton {
-    outline-color: red;
+legend {
+    background-color: var(--color-background);
+    border-color: var(--color-border);
+    border-radius: 5px;
 }
 
-.block-container {
-    display: block;
+.flex-width {
+    width: auto;
+}
+
+.ingredient-button {
+    border-style: double;
+    border-radius: 40%;
 }
 
 .flex-container {
     display: flex;
     flex-wrap: wrap;
+}
+
+.block-container {
+    display: block;
 }
 
 .header-container {
