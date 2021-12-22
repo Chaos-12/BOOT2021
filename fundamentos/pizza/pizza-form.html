@@ -4,10 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Pizza</title>
-    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/pizza.css">
 </head>
 <body>
-    <header>Add Pizza</header>
+    <header class="main-header">
+        <img class="logo" id="logo" src="./images/logo.svg" alt="Logo of PizzaShop">
+        <nav class="main-header__menu">
+            <a href="index.html">HOME</a>
+            <a href="pizza-list.html">PIZZAS</a>
+            <a href="pizza-form.html">ADD PIZZA</a>
+            <a href="client-form.html">REGISTER</a>
+            <a href="contact.html">CONTACT</a>
+        </nav>
+        <form class="main-header__login">
+            <input type="text" name="user" size="8" placeholder="Email">
+            <input type="password" name="password" size="8" placeholder="Password">
+            <input type="submit" value="Login">
+        </form>
+    </header>
     <form>
         <fieldset>
         <legend>Name:</legend>

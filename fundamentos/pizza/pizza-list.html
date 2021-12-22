@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Pizza</title>
+    <link rel="stylesheet" href="css/pizza.css">
+</head>
+<body>
+    <header class="main-header">
+        <img class="logo" id="logo" src="./images/logo.svg" alt="Logo of PizzaShop">
+        <nav class="main-header__menu">
+            <a href="index.html">HOME</a>
+            <a href="pizza-list.html">PIZZAS</a>
+            <a href="pizza-form.html">ADD PIZZA</a>
+            <a href="client-form.html">REGISTER</a>
+            <a href="contact.html">CONTACT</a>
+        </nav>
+        <form class="main-header__login">
+            <input type="text" name="user" size="8" placeholder="Email">
+            <input type="password" name="password" size="8" placeholder="Password">
+            <input type="submit" value="Login">
+        </form>
+    </header>
+
+    <main>
+        <section class="catalog">
+            <article class="catalog__article">
+                <header class="catalog__article-header">Margarita Pizza</header>
+                <figure class="catalog__article-figure">
+                    <picture class="catalog__article-figure-picture">
+                        <source media="(min-width:768px)" srcset="./images/defaultPizza400.jpg">
+                        <source media="(min-width:576px)" srcset="./images/defaultPizza300.jpg">
+                        <img class="img--round" src="./images/defaultPizza200.jpg" alt="Picture of a Pizza">
+                    </picture>
+                    <figcaption>Keep it simple</figcaption>
+                </figure>
+                <summary class="catalog__article-summary">
+                    Our famous margarita pizza
+                </summary>
+            </article>
+            <article class="catalog__article">
+                <header class="catalog__article-header">BBQ Pizza</header>
+                <figure class="catalog__article-figure">
+                    <picture class="catalog__article-figure-picture">
+                        <source media="(min-width:768px)" srcset="./images/defaultPizza400.jpg">
+                        <source media="(min-width:576px)" srcset="./images/defaultPizza300.jpg">
+                        <img class="img--round" src="./images/defaultPizza200.jpg" alt="Picture of a Pizza">
+                    </picture>
+                    <figcaption>For the meat lovers</figcaption>
+                </figure>
+                <summary class="catalog__article-summary">
+                    Our famous BBQ pizza
+                </summary>
+            </article>
+            <article class="catalog__article">
+                <header class="catalog__article-header">Carbonara Pizza</header>
+                <figure class="catalog__article-figure">
+                    <picture class="catalog__article-figure-picture">
+                        <source media="(min-width:768px)" srcset="./images/defaultPizza400.jpg">
+                        <source media="(min-width:576px)" srcset="./images/defaultPizza300.jpg">
+                        <img class="img--round" src="./images/defaultPizza200.jpg" alt="Picture of a Pizza">
+                    </picture>
+                    <figcaption>Our favorite</figcaption>
+                </figure>
+                <summary class="catalog__article-summary">
+                    Our take in the classical Carbonara
+                </summary>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
