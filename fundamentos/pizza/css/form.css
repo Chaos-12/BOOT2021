@@ -64,3 +64,13 @@ legend {
 .columns4 {
     column-count: 4;
 }
+
+.pizza-container {
+    display: grid;
+    grid-template-areas:
+        'header header header header header header'
+        'picture picture main main right right'
+        'picture picture footer footer footer footer';
+    grid-gap: 10px;
+    padding: 10px;
+}

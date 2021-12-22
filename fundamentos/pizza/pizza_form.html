@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Pizza</title>
     <link rel="stylesheet" href="css/form.css">
-
 </head>
 <body>
     <header>Add Pizza</header>
@@ -85,14 +84,6 @@
             document.getElementById('ingredientList').appendChild(button);
         }
         document.getElementById('newIngredient').value=null;
-    }
-    function markButton(){
-        console.log('hey');
-        if (this.classList.contains('markedButton')){
-            this.classList.remove('markedButton');
-        } else {
-            this.classList.add('markedButton');
-        }
     }
     function removeChildsFrom(parentId) {
         let parent = document.getElementById(parentId);
