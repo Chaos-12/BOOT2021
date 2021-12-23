@@ -23,90 +23,131 @@
         </form>
     </header>
     <form>
-        <fieldset>
-            <legend class="legend__title">Name:</legend>
-            <input class="form__text-box" type="text" name="name" placeholder="Name of the pizza" required>
-        </fieldset>
-        <fieldset>
-            <legend class="legend__title">Description:</legend>
-            <textarea class="form__text-box" rows='6' placeholder="Description of the pizza" required></textarea>
-        </fieldset>
-        <fieldset>
-            <legend class="legend__title">Ingredients:</legend>
-            <section class="small-box columns4">
-                <legend class="legend__title-small">Mass:</legend>
-                <input type="radio" name="mass" value="Slim">
-                <label for="mass">Slim</label><br>
-                <input type="radio" name="mass" value="Regular" checked="true">
-                <label for="mass">Regular</label><br>
-                <input type="radio" name="mass" value="Thick">
-                <label for="mass">Thick</label><br>
-                <input type="radio" name="mass" value="Gluten-free">
-                <label for="mass">Gluten-free</label>
-            </section>
-            <section class="small-box columns4">
-                <legend class="legend__title-small">Base:</legend>
-                <input type="radio" name="sauce" value="Tomato sauce" checked="true">
-                <label for="sauce">Tomato</label><br>
-                <input type="radio" name="sauce" value="White sauce">
-                <label for="sauce">White</label><br>
-                <input type="radio" name="sauce" value="BBQ sauce">
-                <label for="sauce">BBQ</label><br>
-                <input type="radio" name="sauce" value="Oil sauce">
-                <label for="sauce">Olive oil</label>
-            </section>
-            <section class="small-box">
-                <input class="form__text-box" id="newIngredient" list="ingredients" placeholder="Select Ingredient...">
-                <datalist id="ingredients">
-                    <option>Pepperoni</option>
-                    <option>Chicken</option>
-                    <option>Pulled Pork</option>
-                    <option>Tuna</option>
-                    <option>Salmon</option>
-                    <option>Corn</option>
-                    <option>Onion</option>
-                    <option>Pepper</option>
-                    <option>Mushrooms</option>
-                    <option>Olives</option>
-                    <option>Tomato</option>
-                    <option>Mozzarella Cheese</option>
-                    <option>Provolone Cheese</option>
-                    <option>Blue Cheese</option>
-                </datalist>
-                <input class="button__form" type="button" onclick="createButtonIngredient()" value="Add">
-                <input class="button__form" type="button" onclick="removeChildsFrom('ingredientList')" value="Remove All">
+        <main class="main-body">
+            <fieldset>
+                <legend class="legend__title">Name:</legend>
+                <input class="form__text-box" type="text" name="name" placeholder="Name of the pizza" required>
+            </fieldset>
+            <fieldset>
+                <legend class="legend__title">Description:</legend>
+                <textarea class="form__text-box" rows='6' placeholder="Description of the pizza" required></textarea>
+            </fieldset>
+            <fieldset>
+                <legend class="legend__title">Ingredients:</legend>
+                <section class="small-box columns4" id="ingredientMass">
+                    <legend class="legend__title-small">Mass:</legend>
+                    <input type="radio" name="mass" value="Slim" data-price="1">
+                    <label for="mass">Slim</label>
+                    <input type="radio" name="mass" value="Regular" checked="true" data-price="2">
+                    <label for="mass">Regular</label>
+                    <input type="radio" name="mass" value="Thick" data-price="3">
+                    <label for="mass">Thick</label>
+                    <input type="radio" name="mass" value="Gluten-free" data-price="4">
+                    <label for="mass">Gluten-free</label>
+                </section>
+                <section class="small-box columns4" id="ingredientBase">
+                    <legend class="legend__title-small">Base:</legend>
+                    <input type="radio" name="sauce" value="Tomato sauce" checked="true" data-price="2.3">
+                    <label for="sauce">Tomato</label>
+                    <input type="radio" name="sauce" value="White sauce" checked="false" data-price="2.3">
+                    <label for="sauce">White</label>
+                    <input type="radio" name="sauce" value="BBQ sauce" checked="false" data-price="2.3">
+                    <label for="sauce">BBQ</label>
+                    <input type="radio" name="sauce" value="Oil sauce" checked="false" data-price="2.3">
+                    <label for="sauce">Olive oil</label>
+                </section>
+                <section class="small-box">
+                    <input class="form__text-box" id="newIngredient" list="ingredients" placeholder="Select Ingredient...">
+                    <datalist id="ingredients">
+                        <option data-price="3.6">Pepperoni</option>
+                        <option data-price="3.3">Chicken</option>
+                        <option data-price="4.2">Pulled Pork</option>
+                        <option data-price="4.0">Grilled Beef</option>
+                        <option data-price="3.6">Tuna</option>
+                        <option data-price="5.8">Salmon</option>
+                        <option data-price="1.2">Red Onion</option>
+                        <option data-price="1.2">Onion</option>
+                        <option data-price="0.95">Lettuce</option>
+                        <option data-price="0.8">Tomato</option>
+                        <option data-price="0.4">Corn</option>
+                        <option data-price="0.5">Pepper</option>
+                        <option data-price="0.7">Mushrooms</option>
+                        <option data-price="0.3">Olives</option>
+                        <option data-price="2.5">Mozzarella Cheese</option>
+                        <option data-price="2.6">Provolone Cheese</option>
+                        <option data-price="3.1">Blue Cheese</option>
+                    </datalist>
+                    <input class="button__form" type="button" onclick="createButtonIngredient()" value="Add">
+                    <input class="button__form" type="button" onclick="removeChildsFrom('ingredientList')" value="Remove All">
+                </section>
                 <section id="ingredientList"></section>
-            </section>
-        </fieldset>
+                <section>
+                    <legend class="legend__title-small">Price of the ingredients:</legend>
+                    <input class="form__text-box button__entity" id="ingredientPrice" type="text" value="0.00€">
+                </section>
+            </fieldset>
 
-        <fieldset>
-            <legend class="legend__title">Picture:</legend>
-            <input class="second-row" id="pictureSelector" type="file" name="Upload Picture">
-            <img id="previewPicture">
-        </fieldset>
-
-        <input class="button__form" type="submit" value="Submit pizza">
-        <input class="button__form" type="reset" value="Reset">
+            <fieldset>
+                <legend class="legend__title">Picture:</legend>
+                <input class="second-row" id="pictureSelector" type="file" name="Upload Picture">
+                <img id="previewPicture">
+            </fieldset>
+        </main>
+        <footer>
+            <input class="button__form" type="submit" value="Submit pizza">
+            <input class="button__form" type="reset" value="Reset">
+        </footer>
     </form>
 </body>
 <script>
     function createButtonIngredient(){
-        let ingredient = document.getElementById('newIngredient').value;
-        if (0 !== ingredient.length) {
+        let ingredient = document.getElementById('newIngredient');
+        if (0 !== ingredient.value.length) {
             let button = document.createElement("button");
             button.type="button";
             button.classList="button__entity";
-            button.innerText = ingredient;
-            button.value = ingredient;
+            button.innerText = ingredient.value;
+            button.value = ingredient.value;
+            assignPrice(document.getElementById('ingredients'),button, button.value)
             document.getElementById('ingredientList').appendChild(button);
         }
         document.getElementById('newIngredient').value=null;
+        calculatePrice();
+    }
+    function assignPrice(list, destination, key){
+        for (let i=0; i < list.childElementCount; i++) {
+            let element = list.children[i];
+            if (element.value === key) {
+                destination.dataset.price = element.dataset.price;
+            }
+        }
+    }
+    function getRadioPrice(list){
+        for (let i=0; i < list.childElementCount; i++) {
+            let child = list.children[i];
+            if(child instanceof input && child.checked === true){
+                return child.dataset.price;
+            }
+        }
+    }
+    function calculatePrice(){
+        var price = 6;
+        // var price = getRadioPrice(document.getElementById('ingredientMass'))
+        //             + getRadioPrice(document.getElementById('ingredientBase'));
+        let list = document.getElementById('ingredientList');
+        for (let i=0; i<list.childElementCount; i++){
+            price += Number(list.children[i].dataset.price);
+        }
+        price = Math.round(price*100)/100;
+        document.getElementById('ingredientPrice').value=""+price+" €";
     }
     function removeChildsFrom(parentId) {
         let parent = document.getElementById(parentId);
         while(0 < parent.childElementCount){
             parent.removeChild(parent.children[0]);
         }
+        calculatePrice();
     }
+    calculatePrice();
 </script>
 </html>

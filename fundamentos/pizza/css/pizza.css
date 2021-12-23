@@ -52,7 +52,7 @@
     color: var(--color1);
 }
 
-.catalog, body > form {
+.catalog, .main-body {
     background-color: var(--color-alpha2);
     color: var(--color-contrast2);
     margin-left: 2em;
@@ -187,6 +187,17 @@
     padding: 3px;
     border-radius: 15px;
     display: inline-flex;
+    column-count: 4;
+    text-align: center;
+}
+
+.ingredient-box {
+    background-color: var(--color1);
+    border: 5px outset var(--color-contrast1);
+    margin: 3px;
+    padding: 3px;
+    border-radius: 15px;
+    display: flex;
     column-count: 4;
     text-align: center;
 }
