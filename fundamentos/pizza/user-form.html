@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="css/pizza.css">
+</head>
+<body>
+    <header class="main-header">
+        <img class="logo" id="logo" src="./images/logo.svg" alt="Logo of PizzaShop">
+        <nav class="main-header__menu">
+            <a href="index.html">Home</a>
+            <a href="pizza-list.html">Pizzas</a>
+            <a href="pizza-form.html">Add Pizza</a>
+            <a href="user-form.html">Register</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <form class="main-header__login">
+            <input type="text" name="user" size="8" placeholder="Email">
+            <input type="password" name="password" size="8" placeholder="Password">
+            <input type="submit" value="Login">
+        </form>
+    </header>
+    <form>
+        <fieldset>
+            <legend class="legend__title">Name:</legend>
+            <input type="text" name="name" placeholder="Your name" required>
+        </fieldset>
+        <fieldset>
+            <legend class="legend__title">Surname:</legend>
+            <input type="text" name="surname" placeholder="Your surname" required>
+        </fieldset>
+        <fieldset>
+            <legend class="legend__title">Email:</legend>
+            <input type="Email" name="email" placeholder="Your email" required>
+        </fieldset>
+        <fieldset class="columns1">
+            <legend class="legend__title">Password:</legend>
+            <input type="password" name="password1" placeholder="Your password" required>
+            <input type="password" name="password2" placeholder="Repeat password" required>
+        </fieldset>
+        <fieldset>
+            <input type="checkbox" name="terms" value="Terms">
+            <label for="terms">I accept the <a href="terms.html">terms and conditions</a></label><br>
+            <input type="checkbox" name="ads" value="Ads">
+            <label for="ads">I want to receive special offers from this site</label><br>
+            <input type="submit" value="Register">
+            <input type="reset" value="Reset">
+        </fieldset>
+    </form>
+</body>
+
+</html>

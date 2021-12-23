@@ -10,31 +10,31 @@
     <header class="main-header">
         <img class="logo" id="logo" src="./images/logo.svg" alt="Logo of PizzaShop">
         <nav class="main-header__menu">
-            <a href="index.html">HOME</a>
-            <a href="pizza-list.html">PIZZAS</a>
-            <a href="pizza-form.html">ADD PIZZA</a>
-            <a href="client-form.html">REGISTER</a>
-            <a href="contact.html">CONTACT</a>
+            <a href="index.html">Home</a>
+            <a href="pizza-list.html">Pizzas</a>
+            <a href="pizza-form.html">Add Pizza</a>
+            <a href="user-form.html">Register</a>
+            <a href="contact.html">Contact</a>
         </nav>
         <form class="main-header__login">
             <input type="text" name="user" size="8" placeholder="Email">
             <input type="password" name="password" size="8" placeholder="Password">
-            <input type="submit" value="Login">
+            <input class="button-form" type="submit" value="Login">
         </form>
     </header>
     <form>
         <fieldset>
-        <legend>Name:</legend>
-        <input class="flex-width" type="text" name="name" placeholder="Name of the pizza" required>
+            <legend class="legend__title">Name:</legend>
+            <input class="form__text-box" type="text" name="name" placeholder="Name of the pizza" required>
         </fieldset>
         <fieldset>
-            <legend>Description:</legend>
-            <textarea rows='6' placeholder="Description of the pizza" required></textarea>
+            <legend class="legend__title">Description:</legend>
+            <textarea class="form__text-box" rows='6' placeholder="Description of the pizza" required></textarea>
         </fieldset>
-        <fieldset class="flex-container centered-items">
-            <legend>Ingredients:</legend>
-            <section class="block-container columns1">
-                <p>Mass:</p>
+        <fieldset>
+            <legend class="legend__title">Ingredients:</legend>
+            <section class="small-box columns4">
+                <legend class="legend__title-small">Mass:</legend>
                 <input type="radio" name="mass" value="Slim">
                 <label for="mass">Slim</label><br>
                 <input type="radio" name="mass" value="Regular" checked="true">
@@ -44,45 +44,49 @@
                 <input type="radio" name="mass" value="Gluten-free">
                 <label for="mass">Gluten-free</label>
             </section>
-            <section class="block-container columns1">
-                <p class="header-container">Base:</p>
+            <section class="small-box columns4">
+                <legend class="legend__title-small">Base:</legend>
                 <input type="radio" name="sauce" value="Tomato sauce" checked="true">
                 <label for="sauce">Tomato</label><br>
                 <input type="radio" name="sauce" value="White sauce">
                 <label for="sauce">White</label><br>
+                <input type="radio" name="sauce" value="BBQ sauce">
+                <label for="sauce">BBQ</label><br>
                 <input type="radio" name="sauce" value="Oil sauce">
                 <label for="sauce">Olive oil</label>
             </section>
-            <section>
-                <input id="newIngredient" list="ingredients" placeholder="Select Ingredient...">
+            <section class="small-box">
+                <input class="form__text-box" id="newIngredient" list="ingredients" placeholder="Select Ingredient...">
                 <datalist id="ingredients">
                     <option>Pepperoni</option>
                     <option>Chicken</option>
                     <option>Pulled Pork</option>
                     <option>Tuna</option>
                     <option>Salmon</option>
+                    <option>Corn</option>
+                    <option>Onion</option>
+                    <option>Pepper</option>
+                    <option>Mushrooms</option>
                     <option>Olives</option>
                     <option>Tomato</option>
-                    <option>BBQ Sauce</option>
-                    <option>Carbonara Sauce</option>
                     <option>Mozzarella Cheese</option>
                     <option>Provolone Cheese</option>
                     <option>Blue Cheese</option>
                 </datalist>
-                <input type="button" onclick="createButtonIngredient()" value="Add">
-                <input type="button" onclick="removeChildsFrom('ingredientList')" value="Remove All">
+                <input class="button__form" type="button" onclick="createButtonIngredient()" value="Add">
+                <input class="button__form" type="button" onclick="removeChildsFrom('ingredientList')" value="Remove All">
                 <section id="ingredientList"></section>
             </section>
         </fieldset>
 
         <fieldset>
-            <legend>Picture:</legend>
-            <input id="pictureSelector" type="file" name="Upload Picture">
+            <legend class="legend__title">Picture:</legend>
+            <input class="second-row" id="pictureSelector" type="file" name="Upload Picture">
             <img id="previewPicture">
         </fieldset>
 
-        <input type="submit" value="Submit pizza">
-        <input type="reset" value="Reset">
+        <input class="button__form" type="submit" value="Submit pizza">
+        <input class="button__form" type="reset" value="Reset">
     </form>
 </body>
 <script>
@@ -91,10 +95,9 @@
         if (0 !== ingredient.length) {
             let button = document.createElement("button");
             button.type="button";
-            button.classList="ingredient-button";
+            button.classList="button__entity";
             button.innerText = ingredient;
             button.value = ingredient;
-            button.onclick = "markButton()";
             document.getElementById('ingredientList').appendChild(button);
         }
         document.getElementById('newIngredient').value=null;

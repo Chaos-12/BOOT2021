@@ -1,11 +1,12 @@
 :root {
     --color1: green;
     --color2: red;
-    --color3: rgba(255, 0, 0, 0.25);
+    --color3: white;
+    --color-alpha2: rgba(255, 0, 0, 0.30);
     --color-font: white;
     --color-contrast1: white;
     --color-contrast2: white;
-    --color-contrast3: white;
+    --color-contrast3: red;
 }
 
 .logo {
@@ -27,14 +28,19 @@
     flex-grow: 1;
     font-size: 20px;
     margin-left: 15px;
-    margin-right: 5px;
+    margin-right: 15px;
+}
+
+.main-header__login {
+    flex-grow: 1;
+    text-align: right;
 }
 
 .main-header__menu a:link, .main-header__menu a:visited {
     background-color: var(--color1);
     color: var(--color-contrast1);
     border: 2px solid var(--color-contrast1);
-    padding: 1px 2px;
+    padding: 3px 3px;
     border-radius: 4px;
     text-align: center;
     text-decoration: none;
@@ -46,14 +52,9 @@
     color: var(--color1);
 }
 
-.main-header__login {
-    text-align: right;
-    flex-grow: 1;
-}
-
-.catalog {
-    background-color: var(--color3);
-    color: var(--color-contrast3);
+.catalog, body > form {
+    background-color: var(--color-alpha2);
+    color: var(--color-contrast2);
     margin-left: 2em;
     margin-right: 2em;
     display: flex;
@@ -69,11 +70,12 @@
     font-size: 2em;
 }
 
-.catalog__article {
+.catalog__article, fieldset {
     background-color: var(--color2);
-    border: 4px dashed var(--color-contrast2);
+    border: 10px double var(--color-contrast2);
     margin: 10px;
     padding: 10px;
+    border-radius: 25px;
     text-align: center;
 }
 
@@ -156,4 +158,68 @@
 
 .img--round {
     border-radius: 50%;
+}
+
+.column1 {
+    column-count: 1;
+}
+
+.columns4 {
+    column-count: 4;
+}
+
+.legend__title {
+    font-weight: bold;
+    font-size: 1.5em;
+    padding-top: 12px;
+    border: 3px;
+}
+
+.legend__title-small {
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.small-box {
+    background-color: var(--color1);
+    border: 5px outset var(--color-contrast1);
+    margin: 3px;
+    padding: 3px;
+    border-radius: 15px;
+    display: inline-flex;
+    column-count: 4;
+    text-align: center;
+}
+
+.form__text-box {
+    border: 3px ridge var(--color1);
+    border-radius: 2px;
+}
+
+.button__entity {
+    background-color: var(--color1);
+    color: var(--color-contrast1);
+    border: 2px solid var(--color-contrast1);
+    margin: 3px;
+    padding: 3px 3px;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.button__form {
+    background-color: var(--color2);
+    color: var(--color-contrast2);
+    border: 2px solid var(--color-contrast2);
+    margin: 3px;
+    padding: 3px 3px;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flexbox;
+}
+
+.second-row {
+    grid-row: 2;
 }
