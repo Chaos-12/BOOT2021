@@ -3,8 +3,7 @@
     Crear una función que devuelva un numero aleatorio (Math.random()) dentro del rango dado.
  */
 function randomFromRange(range = 1, from = 0) {
-    let number = Math.random()*range;
-    return from + number;
+    return from + Math.random()*range;
 }
 
 /* Ejercicio 2:
