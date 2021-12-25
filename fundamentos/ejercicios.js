@@ -1,12 +1,12 @@
 
-/* Ejercicio 1: 
+/* Sintaxis y funciones - Ejercicio 1: 
     Crear una función que devuelva un numero aleatorio (Math.random()) dentro del rango dado.
  */
 function randomFromRange(range = 1, from = 0) {
     return from + Math.random()*range;
 }
 
-/* Ejercicio 2:
+/* Sintaxis y funciones - Ejercicio 2:
     Adivina el Número, generar un número entre el 0 y el 100, introducir un número e 
     informar si es igual, mayor o menor. Hay un máximo de 10 intentos para encontrar 
     el número que sea igual.
@@ -28,11 +28,11 @@ function guessRandomNumber(tries = 10, range = 100, from = 0) {
             console.log(`Sorry, ${yourGuess} is too high...`)
         }
     }
-    console.log(`Sorry, my number was ${secret}.`)
+    console.log(`You have no more tries: my number was ${secret}.`)
     return false;
 }
 
-/* Ejercicio 3:
+/* Sintaxis y funciones - Ejercicio 3:
     Crear una función que devuelva un array con el numero de elementos indicado,
     inicializados al valor suministrado.
  */
@@ -44,7 +44,7 @@ function getRepeatedArray(length = 1, value = 0) {
     return array;
 }
 
-/* Ejercicio 4:
+/* Sintaxis y funciones - Ejercicio 4:
     Crear una función que devuelva un determinado número de números primos.
  */
 function getFirstPrimes(nPrimes) {
@@ -115,7 +115,7 @@ function fillMultiplesOf(array, value = 0, step = 1, from = 0) {
     }
 }
 
-/* Ejercicio 5:
+/* Sintaxis y funciones - Ejercicio 5:
     Crear una función que valide un NIF.
  */
 function isValidNIF(nif) {
@@ -140,7 +140,7 @@ function isValidNIF(nif) {
     return false;
 }
 
-/* Ejercicio 6:
+/* Sintaxis y funciones - Ejercicio 6:
     Definir una función que determine si la cadena de texto que se le pasa como parámetro es 
     un palíndromo, es decir, si se lee de la misma forma desde la izquierda y desde la derecha. 
     Ejemplo de palíndromo complejo: "La ruta nos aporto otro paso natural"
@@ -158,4 +158,37 @@ function isPalindrome(input) {
         j--;
     }
     return true;
+}
+
+/*  Objetos - Ejercicios:
+    Crear la función constructora del juego Adivina el Número.
+    Crear la clase del juego Adivina el Número.
+ */
+class GuessNumberGame {
+    constructor(tries = 10, range = 100, from = 0) {
+        let myTries = tries;
+        this.Tries = function(value) {
+            if(undefined !== value) {
+                myTries = value;
+            }
+            return myTries;
+        }
+        let myRange = range;
+        this.Range = function(value) {
+            if(undefined !== value) {
+                myRange = value;
+            }
+            return myRange;
+        }
+        let myFrom = from;
+        this.From = function(value) {
+            if(undefined !== value) {
+                myFrom = value;
+            }
+            return myFrom;
+        }
+        this.start = function(){
+            return guessRandomNumber(myTries, myRange, myFrom);
+        }
+    }
 }
