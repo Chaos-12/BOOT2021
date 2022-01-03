@@ -77,7 +77,7 @@ function computeLimitEratosthenes(nPrimes) {
     let surpassingFunction = x => x/Math.log(x);
     let x = valueToSurpass * Math.log(valueToSurpass);
     while (valueToSurpass > surpassingFunction(x)) {
-        x += nPrimes;
+        x += valueToSurpass;
     }
     return Math.ceil(x);
 }
@@ -119,22 +119,16 @@ function fillMultiplesOf(array, value = 0, step = 1, from = 0) {
     Crear una función que valide un NIF.
  */
 function isValidNIF(nif) {
-    let testNif = nif.split('-').join('');
-    if (testNif.length === 9) {
-        let validNifNumbers = "0123456789";
-        for (let i=0; i<8; i++) {
-            if (!validNifNumbers.includes(testNif[i])) {
-                return false;
+    if (typeof test === "string" || test instanceof String) {
+        const validNifLetters = "TRWAGMYFPDXBNJZSQVHLCKE";
+        const regExpNif = new RegExp(`^[0-9]{8,8}[${validNifLetters}]$`);
+        let testNif = nif.split('-').join('').toUpperCase();
+        if (regExpNif.test(testNif)){
+            let number = parseInt(testNif) % 23;
+            let letter = testNif[8];
+            if (validNifLetters[number] === letter) {
+                return true;
             }
-        }
-        let validNifLetters = "trwagmyfpdxbnjzsqvhlcke";
-        let letter = testNif[8].toLowerCase();
-        if (!validNifLetters.includes(letter)) {
-            return false;
-        }
-        let number = parseInt(testNif) % 23;
-        if (validNifLetters[number] === letter) {
-            return true;
         }
     }
     return false;
@@ -146,6 +140,9 @@ function isValidNIF(nif) {
     Ejemplo de palíndromo complejo: "La ruta nos aporto otro paso natural"
  */
 function isPalindrome(input) {
+    if (!input.length) {
+        return false;
+    }
     let test = input;
     if (typeof test === "string" || test instanceof String) {
         test = input.replace(/\s/g, '').toLowerCase();
