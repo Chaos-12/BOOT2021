@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicios</title>
+    <title>Exercises</title>
 </head>
 <body>
-    <script src="ejercicios1.js"></script>
+    <script type="module">
+        import * as exer1 from "./ejercicios1.js";
+        import {computeLimitEratosthenes, primeEratosthenes} from "./eratosthenes.js";
+        console.log(exer1.getFirstPrimes(168));
+    </script>
     <script src="ejercicios2.js"></script>
 </body>
 </html>

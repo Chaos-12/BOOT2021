@@ -1,17 +1,20 @@
+// Ejercicios Bloque 1: Sintaxis y Funciones
 
-/* Sintaxis y funciones - Ejercicio 1: 
+import {computeLimitEratosthenes, primeEratosthenes} from "./eratosthenes.js";
+
+/* Ejercicio 1: 
     Crear una función que devuelva un numero aleatorio (Math.random()) dentro del rango dado.
  */
-function randomFromRange(range = 1, from = 0) {
+export function randomFromRange(range = 1, from = 0) {
     return from + Math.random()*range;
 }
 
-/* Sintaxis y funciones - Ejercicio 2:
+/* Ejercicio 2:
     Adivina el Número, generar un número entre el 0 y el 100, introducir un número e 
     informar si es igual, mayor o menor. Hay un máximo de 10 intentos para encontrar 
     el número que sea igual.
  */
-function guessRandomNumber(tries = 10, range = 100, from = 0) {
+export function guessRandomNumber(tries = 10, range = 100, from = 0) {
     let secret = Math.round(randomFromRange(range, from));
     console.log(`I just wrote an integer number between ${from} and ${from+range}.`)
     console.log(`Can you guess my number in ${tries} tries?`)
@@ -32,11 +35,11 @@ function guessRandomNumber(tries = 10, range = 100, from = 0) {
     return false;
 }
 
-/* Sintaxis y funciones - Ejercicio 3:
+/* Ejercicio 3:
     Crear una función que devuelva un array con el numero de elementos indicado,
     inicializados al valor suministrado.
  */
-function getRepeatedArray(length = 1, value = 0) {
+export function getRepeatedArray(length = 1, value = 0) {
     let array = [];
     for (let i=0; i<length; i++) {
         array[i] = value;
@@ -44,10 +47,10 @@ function getRepeatedArray(length = 1, value = 0) {
     return array;
 }
 
-/* Sintaxis y funciones - Ejercicio 4:
+/* Ejercicio 4:
     Crear una función que devuelva un determinado número de números primos.
  */
-function getFirstPrimes(nPrimes) {
+export function getFirstPrimes(nPrimes) {
     let primeList = [];
     let limit = computeLimitEratosthenes(nPrimes);
     let eratosthenes = primeEratosthenes(limit);
@@ -59,66 +62,10 @@ function getFirstPrimes(nPrimes) {
     return primeList;
 }
 
-/**
- * This function provides a limit such that when we apply the sieve of Eratosthenes we obtain 
- * (at least) certain amount of prime numbers.
- * 
- * It is based on the fact that "x/log(x) < pi(x)" holds (when x > 17) where "pi(x)" represents 
- * the amount of prime numbers with lesser or equal value to x.
- * 
- * @param {*} nPrimes The minimal amount of prime numbers we want to obtain in the sieve of Eratosthenes
- * @returns A limit providing (at least) the desired amount of primes in the sieve of Eratosthenes
- */
-function computeLimitEratosthenes(nPrimes) {
-    if (nPrimes <= 7) {
-        return 17;
-    }
-    let valueToSurpass = nPrimes;
-    let surpassingFunction = x => x/Math.log(x);
-    let x = valueToSurpass * Math.log(valueToSurpass);
-    while (valueToSurpass > surpassingFunction(x)) {
-        x += valueToSurpass;
-    }
-    return Math.ceil(x);
-}
-
-/**
- * Implementation of the "Sieve of Eratosthenes": provides all prime numbers up to certain value.
- * 
- * Creates an array filled with 'true' except for the index 0 and 1. Then, in increasing order,
- * when we find an index marked as 'true' we know that is a prime number, we mark all its "multiples"
- * as 'false' and we submit the (prime) index.
- * 
- * @param {*} limit An upper bound for all the prime numbers this function provides.
- */
-function* primeEratosthenes(limit = 17) {
-    let isPrime = getRepeatedArray(limit+1, true);
-    isPrime[0] = isPrime[1] = false;
-    for (let i = 2; i < isPrime.length; i++) {
-        if (isPrime[i]) {
-            fillMultiplesOf(isPrime, false, i, i*i);
-            yield i;
-        }
-    }
-}
-
-/**
- * Function that fills an array with a fixed value, with a fixed step, starting from a certain index.
- * @param {*} array The array to fill
- * @param {*} value The filling value
- * @param {*} step The step
- * @param {*} from The first value to fill
- */
-function fillMultiplesOf(array, value = 0, step = 1, from = 0) {
-    for (let i=from; i<array.length; i += step) {
-        array[i] = value;
-    }
-}
-
-/* Sintaxis y funciones - Ejercicio 5:
+/* Ejercicio 5:
     Crear una función que valide un NIF.
  */
-function isValidNif(nif) {
+export function isValidNif(nif) {
     if (typeof nif === "string" || nif instanceof String) {
         const validNifLetters = "TRWAGMYFPDXBNJZSQVHLCKE";
         const regExpNif = new RegExp(`^[0-9]{8,8}[${validNifLetters}]$`);
@@ -134,12 +81,12 @@ function isValidNif(nif) {
     return false;
 }
 
-/* Sintaxis y funciones - Ejercicio 6:
+/* Ejercicio 6:
     Definir una función que determine si la cadena de texto que se le pasa como parámetro es 
     un palíndromo, es decir, si se lee de la misma forma desde la izquierda y desde la derecha. 
     Ejemplo de palíndromo complejo: "La ruta nos aporto otro paso natural"
  */
-function isPalindrome(input) {
+export function isPalindrome(input) {
     if (!input.length) {
         return false;
     }
