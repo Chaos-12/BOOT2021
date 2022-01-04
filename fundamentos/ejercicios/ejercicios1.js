@@ -68,11 +68,11 @@ export function getFirstPrimes(nPrimes) {
 export function isValidNif(nif) {
     if (typeof nif === "string" || nif instanceof String) {
         const validNifLetters = "TRWAGMYFPDXBNJZSQVHLCKE";
-        const regExpNif = new RegExp(`^[0-9]{8,8}[${validNifLetters}]$`);
+        const regExpNif = new RegExp(`^[0-9]{1,8}[${validNifLetters}]$`);
         let testNif = nif.split('-').join('').toUpperCase();
         if (regExpNif.test(testNif)){
             let number = parseInt(testNif) % 23;
-            let letter = testNif[8];
+            let letter = testNif[testNif.length-1];
             if (validNifLetters[number] === letter) {
                 return true;
             }
