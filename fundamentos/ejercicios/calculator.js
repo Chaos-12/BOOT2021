@@ -29,7 +29,7 @@ export default class Calculator {
                 case '-':
                     this.substract(value);
                     break;
-                case '*':
+                case 'x':
                     this.multiply(value);
                     break;
                 case '/':
