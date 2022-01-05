@@ -1,0 +1,38 @@
+:root {
+    --color-background: rgb(255, 255, 255);
+    --color-border: rgb(250, 2, 2);
+    --color-text: rgb(0, 0, 0);
+}
+
+.boxed {
+    border: 3px ridge var(--color-border);
+    border-radius: 12px;
+}
+
+.largeText {
+    font-size: large;
+}
+
+.firstItem {
+    grid-column-start: 0;
+}
+
+.button {
+    background-color: var(--background);
+    /* color: var(--color-border); */
+    border: 2px solid var(--color-border);
+    margin: 3px;
+    padding: 3px 3px;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.column1 {
+    column-count: 1;
+}
+
+.column2 {
+    column-count: 2;
+}

@@ -7,21 +7,21 @@
 export default class GuessNumberGame {
     #secretNumber;
     constructor(tries = 10, range = 100, from = 0) {
-        let maxTries = tries;
+        let maxTries = +tries;
         this.MaxTries = function(value) {
             if(undefined !== value) {
                 maxTries = value;
             }
             return maxTries;
         }
-        let myRange = range;
+        let myRange = +range;
         this.Range = function(value) {
             if(undefined !== value) {
                 myRange = value;
             }
             return myRange;
         }
-        let myFrom = from;
+        let myFrom = +from;
         this.From = function(value) {
             if(undefined !== value) {
                 myFrom = value;
@@ -64,7 +64,7 @@ export default class GuessNumberGame {
         }
         throw new Error("Unexpected error");
     }
-    get currentTries() {
+    currentTries() {
         return this.tries;
     }
 }

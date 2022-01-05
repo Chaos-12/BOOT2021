@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess Game</title>
+    <link rel="stylesheet" href="guessgame.css">
+</head>
+<body>
+    <head>
+        <h1>Guess my number!</h1>
+    </head>
+    <menu class="boxed columns2">
+        <head class="firstItem largeText">Settings</head>
+        <br>
+        <label class="firstItem">Tries</label>
+        <input type="number" id="game_tries" name="game_tries" value="10" step="1" min="1">
+        <label class="firstItem">Range</label>
+        <input type="number" id="game_range" name="game_range" value="100" step="1" min="1">
+        <input class="button firstItem" type="button" id="game-button_newGame" name="game_newGame" value="New Game"></input>
+    </menu>
+    <main class="boxed columns2">
+        <head>Current Game</head>
+        <br>
+        <input type="number" id="game_userGuess" name="game_userGuess" placeholder="Your guess number" min="0">
+        <input class="button" type="button" id="game-button_newTry" name="game-button_newTry" value="Try" disabled>
+        <output type="textarea boxed" id="game_output" name="game_output"></output>
+    </main>
+    <script type="module">
+        import GuessNumberGame from "./ejercicios2.js";
+        let game = new GuessNumberGame();
+        let noGame = true;
+        let newGame = function(tries, range){
+            if (tries && range) {
+                if (noGame) {
+                    let newTryButton = document.querySelector("#game-button_newTry");
+                    newTryButton.disabled = false;
+                    noGame = false;
+                }
+                game = new GuessNumberGame(tries, range);
+                game.startGame();
+                resetText();
+                informUser(game.message);
+            }
+        }
+        let newTry = function(value){
+            if (value) {
+                game.tryWith(value);
+                informUser(`(${game.currentTries()}/${game.MaxTries()}) `+game.message);
+            }
+        }
+        let informUser = function(text){
+            let output = document.querySelector("#game_output");
+            output.appendChild(document.createElement('br'));
+            let child = document.createTextNode(text);
+            output.appendChild(child);
+        }
+        let resetText = function(){
+            let output = document.querySelector("#game_output");
+            output.textContent = "";
+        }
+        let newGameButton = document.querySelector("#game-button_newGame");
+        newGameButton.addEventListener('click', ev => {
+            let numTries = document.querySelector("#game_tries").value;
+            let numRange = document.querySelector("#game_range").value;
+            newGame(numTries, numRange);
+        });
+        let newTryButton = document.querySelector("#game-button_newTry");
+        newTryButton.addEventListener('click', ev => {
+            let userTry = document.querySelector("#game_userGuess").value;
+            newTry(userTry);
+        });
+    </script>
+</body>
+</html>
