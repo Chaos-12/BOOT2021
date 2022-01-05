@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="calculator.css">
+</head>
+<body>
+    <div class="calculator">
+        <head>
+            <h1>My first calculator</h1>
+        </head>
+        <main class="screen">
+            <output type=textarea id="screen__lastValue" name="screen__lastValue" value="0"> </output>
+            <br>
+            <output class="screen__output" type=textarea id="screen__nextValue" name="screen__nextValue" value="0">0</output>
+        </main>
+        <menu class="button-layout">
+            <input class="number-button" type="button" id="calc_7" name="calc_7" value="7">
+            <input class="number-button" type="button" id="calc_8" name="calc_8" value="8">
+            <input class="number-button" type="button" id="calc_9" name="calc_9" value="9">
+            <input class="operation-button" type="button" id="calc_+" name="calc_+" value="+">
+            <input class="operation-button" type="button" id="calc_-" name="calc_-" value="-">
+            <input class="number-button" type="button" id="calc_4" name="calc_4" value="4">
+            <input class="number-button" type="button" id="calc_5" name="calc_5" value="5">
+            <input class="number-button" type="button" id="calc_6" name="calc_6" value="6">
+            <input class="operation-button" type="button" id="calc_x" name="calc_x" value="x">
+            <input class="operation-button" type="button" id="calc_/" name="calc_/" value="/">
+            <input class="number-button" type="button" id="calc_1" name="calc_1" value="1">
+            <input class="number-button" type="button" id="calc_2" name="calc_2" value="2">
+            <input class="number-button" type="button" id="calc_3" name="calc_3" value="3">
+            <input class="big-button" type="button" id="calc_equals" name="calc_equals" value="=">
+            <input class="start-button" type="button" id="calc_sign" name="calc_sing" value="+/-">
+            <input class="number-button" type="button" id="calc_0" name="calc_0" value="0">
+            <input type="button" id="calc_reset" name="calc_reset" value="C">
+        </menu>
+    </div>
+    <script type="module">
+        import Calculator from "./calculator.js";
+        let calc = new Calculator();
+        let newValueItem = document.querySelector("#screen__nextValue");
+        let lastValueItem = document.querySelector("#screen__lastValue");
+        let updateScreen = function(number){
+            newValueItem.value = +number;
+        }
+        let appendToScreen = function(text){
+            let textNode = document.createTextNode(text);
+            lastValueItem.appendChild(textNode);
+        }
+        document.querySelectorAll(".number-button").forEach( button => {
+            button.addEventListener('click', ev => {
+                calc.number(button.value);
+                updateScreen(calc.nextNumber());
+            });
+        });
+        document.querySelectorAll(".operation-button").forEach( button => {
+            button.addEventListener('click', ev => {
+                appendToScreen(calc.nextNumber());
+                appendToScreen(button.value);
+                calc.operate();
+                calc.operation(button.value);
+                updateScreen(calc.currentNumber());
+            });
+        });
+        document.querySelector("#calc_reset").addEventListener('click', ev => {
+            lastValueItem.children.forEach(child => {
+                if (child instanceof HTMLElement){
+                    lastValueItem.removeChild(child);
+                }
+            });
+            calc.reset();
+            updateScreen(calc.nextNumber());
+        });
+        document.querySelector("#calc_equals").addEventListener('click', ev => {
+            appendToScreen(calc.nextNumber());
+            appendToScreen("=");
+            calc.operate();
+            updateScreen(calc.currentNumber());
+        });
+        document.querySelector("#calc_sign").addEventListener('click', ev => {
+            calc.changeSign();
+            updateScreen();
+        });
+    </script>
+</body>
+</html>

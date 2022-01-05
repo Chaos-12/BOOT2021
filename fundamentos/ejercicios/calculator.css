@@ -1,0 +1,44 @@
+:root {
+    --color-background: rgb(77, 77, 148);
+}
+
+.calculator {
+    border: 3px ridge black;
+    padding: 0.5rem;
+    min-width: 200px;
+    border-radius: 12px;
+    background-color: rgb(77, 77, 148);
+    color: white;
+}
+
+.screen {
+    border: 3px ridge black;
+    border-radius: 12px;
+    text-align: end;
+    padding: 1rem;
+    background-color: rgb(152, 223, 60);
+    color: rgb(0, 0, 0);
+}
+
+.screen__output {
+    font-size: 4rem;
+}
+
+.big-button {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.start-button {
+    grid-column: 0;
+}
+
+.button-layout {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5px;
+    box-sizing: border-box;
+    height: 200px;
+    width: 100%;
+    padding: 10px;
+}
