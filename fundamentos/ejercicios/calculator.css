@@ -6,6 +6,7 @@
     border: 3px ridge black;
     padding: 0.5rem;
     min-width: 200px;
+    max-width: 350px;
     border-radius: 12px;
     background-color: rgb(77, 77, 148);
     color: white;
@@ -26,7 +27,6 @@
 
 .big-button {
     grid-column: span 2;
-    grid-row: span 2;
 }
 
 .start-button {

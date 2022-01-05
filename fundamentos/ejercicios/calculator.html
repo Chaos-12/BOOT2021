@@ -21,20 +21,21 @@
             <input class="number-button" type="button" id="calc_7" name="calc_7" value="7">
             <input class="number-button" type="button" id="calc_8" name="calc_8" value="8">
             <input class="number-button" type="button" id="calc_9" name="calc_9" value="9">
-            <input class="operation-button" type="button" id="calc_+" name="calc_+" value="+">
-            <input class="operation-button" type="button" id="calc_-" name="calc_-" value="-">
+            <input class="big-button" type="button" id="calc_reset" name="calc_reset" value="C">
             <input class="number-button" type="button" id="calc_4" name="calc_4" value="4">
             <input class="number-button" type="button" id="calc_5" name="calc_5" value="5">
             <input class="number-button" type="button" id="calc_6" name="calc_6" value="6">
-            <input class="operation-button" type="button" id="calc_x" name="calc_x" value="x">
-            <input class="operation-button" type="button" id="calc_/" name="calc_/" value="/">
+            <input class="operation-button" type="button" id="calc_+" name="calc_+" value="+">
+            <input class="operation-button" type="button" id="calc_-" name="calc_-" value="-">
             <input class="number-button" type="button" id="calc_1" name="calc_1" value="1">
             <input class="number-button" type="button" id="calc_2" name="calc_2" value="2">
             <input class="number-button" type="button" id="calc_3" name="calc_3" value="3">
-            <input class="big-button" type="button" id="calc_equals" name="calc_equals" value="=">
-            <input class="start-button" type="button" id="calc_sign" name="calc_sing" value="+/-">
+            <input class="operation-button" type="button" id="calc_x" name="calc_x" value="x">
+            <input class="operation-button" type="button" id="calc_/" name="calc_/" value="/">
+            <input type="button" id="calc_sign" name="calc_sing" value="+/-">
             <input class="number-button" type="button" id="calc_0" name="calc_0" value="0">
-            <input type="button" id="calc_reset" name="calc_reset" value="C">
+            <input type="button" id="calc_decimal" name="calc_decimal" value=".">
+            <input class="big-button" type="button" id="calc_equals" name="calc_equals" value="=">
         </menu>
     </div>
     <script type="module">
@@ -43,14 +44,22 @@
         let newValueItem = document.querySelector("#screen__nextValue");
         let lastValueItem = document.querySelector("#screen__lastValue");
         let updateScreen = function(number){
-            newValueItem.value = +number;
+            newValueItem.value = number;
         }
         let appendToScreen = function(text){
-            let textNode = document.createTextNode(text);
+            let textNode = document.createTextNode(' '+text);
             lastValueItem.appendChild(textNode);
+        }
+        let resetScreen = function() {
+            lastValueItem.textContent = "";
+            updateScreen("0");
         }
         document.querySelectorAll(".number-button").forEach( button => {
             button.addEventListener('click', ev => {
+                if (calc.isBlocked()){
+                    resetScreen();
+                    calc.init();
+                }
                 calc.number(button.value);
                 updateScreen(calc.nextNumber());
             });
@@ -65,24 +74,26 @@
             });
         });
         document.querySelector("#calc_reset").addEventListener('click', ev => {
-            lastValueItem.children.forEach(child => {
-                if (child instanceof HTMLElement){
-                    lastValueItem.removeChild(child);
-                }
-            });
-            calc.reset();
-            updateScreen(calc.nextNumber());
+            calc.init();
+            resetScreen();
         });
         document.querySelector("#calc_equals").addEventListener('click', ev => {
-            appendToScreen(calc.nextNumber());
-            appendToScreen("=");
-            calc.operate();
-            updateScreen(calc.currentNumber());
+            if (!calc.isBlocked()){
+                appendToScreen(calc.nextNumber());
+                appendToScreen("=");
+                calc.operate();
+                calc.block();
+                updateScreen(calc.currentNumber());
+            }
         });
         document.querySelector("#calc_sign").addEventListener('click', ev => {
             calc.changeSign();
-            updateScreen();
+            updateScreen(calc.nextNumber());
         });
+        document.querySelector("#calc_decimal").addEventListener('click', ev => {
+            calc.decimal();
+            updateScreen(calc.nextNumber());
+        })
     </script>
 </body>
 </html>

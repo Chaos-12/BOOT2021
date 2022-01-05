@@ -1,73 +1,93 @@
 export default class Calculator {
     #currentNumber;
     #currentOperation;
-    #nextNumber; 
+    #nextNumber;
+    #negative;
+    #blocked;
+    #decimal;
     constructor(){
+        this.init();
+    }
+    init(){
+        this.#currentNumber = 0;
+        this.#currentOperation = '+';
         this.reset();
     }
     reset(){
-        this.#currentNumber = 0;
-        this.#currentOperation = '+';
-        this.#nextNumber = undefined;
+        this.#nextNumber = "";
+        this.#negative = false;
+        this.#blocked = false;
+        this.#decimal = false;
     }
     operate(){
-        let value = +this.#nextNumber;
-        switch (this.#currentOperation){
-            case '+':
-                this.add(value);
-                break;
-            case '-':
-                this.substract(value);
-                break;
-            case '*':
-                this.multiply(value);
-                break;
-            case '/':
-                this.divide(value);
-                break;
+        if (this.#nextNumber){
+            let value = this.nextNumber();
+            switch (this.#currentOperation){
+                case '+':
+                    this.add(value);
+                    break;
+                case '-':
+                    this.substract(value);
+                    break;
+                case '*':
+                    this.multiply(value);
+                    break;
+                case '/':
+                    this.divide(value);
+                    break;
+            }
+            this.reset();
         }
     }
     add(value){
-        if (!Number.isNaN(value)){
-            this.#currentNumber += +value;
-        }
+        this.#currentNumber += value;
     }
     substract(value){
-        if (!Number.isNaN(value)){
-            this.#currentNumber -= +value;
-        }
+        this.#currentNumber -= value;
     }
     multiply(value){
-        if (!Number.isNaN(value)){
-            this.#currentNumber *= +value;
-        }
+        this.#currentNumber *= value;
     }
     divide(value){
-        if (!Number.isNaN(value)){
-            this.#currentNumber /= +value;
-        }
+        this.#currentNumber /= value;
     }
     number(value){
         if (!Number.isNaN(value)){
-            if (this.#nextNumber){
-                let number = +value;
-                this.#nextNumber = this.#nextNumber*10 + number;
-            } else {
-                this.#nextNumber = +value;
-            }
+            this.#nextNumber += value;
         }
+    }
+    block(){
+        this.#blocked = true;
+    }
+    isBlocked(){
+        return this.#blocked;
     }
     operation(value){
         this.#currentOperation = value;
     }
     changeSign(){
-        this.#nextNumber *= -1;
+        this.#negative = !this.#negative;
+    }
+    decimal(){
+        if (!this.#decimal){
+            this.#nextNumber += ".";
+        }
     }
     currentNumber(){
         return this.#currentNumber;
     }
     nextNumber(){
-        return this.#nextNumber || 0;
+        if (!this.#nextNumber){
+            return 0;
+        }
+        let number = Number.parseFloat(this.#nextNumber);
+        if (this.#negative) {
+            number *= -1;
+        }
+        if (this.#decimal && !Number.isInteger(number)){
+            number += '.';
+        }
+        return number;
     }
     currentOperation(){
         return this.#currentOperation;
