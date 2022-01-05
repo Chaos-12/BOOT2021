@@ -56,6 +56,11 @@ export default class Calculator {
             this.#nextNumber += value;
         }
     }
+    back(){
+        if (this.#nextNumber.length){
+            this.#nextNumber = this.#nextNumber.slice(0,-1);
+        }
+    }
     block(){
         this.#blocked = true;
     }
@@ -71,6 +76,7 @@ export default class Calculator {
     decimal(){
         if (!this.#decimal){
             this.#nextNumber += ".";
+            this.#decimal = true;
         }
     }
     currentNumber(){
@@ -83,9 +89,6 @@ export default class Calculator {
         let number = Number.parseFloat(this.#nextNumber);
         if (this.#negative) {
             number *= -1;
-        }
-        if (this.#decimal && !Number.isInteger(number)){
-            number += '.';
         }
         return number;
     }

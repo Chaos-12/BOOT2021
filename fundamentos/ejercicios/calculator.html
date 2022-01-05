@@ -21,7 +21,8 @@
             <input class="number-button" type="button" id="calc_7" name="calc_7" value="7">
             <input class="number-button" type="button" id="calc_8" name="calc_8" value="8">
             <input class="number-button" type="button" id="calc_9" name="calc_9" value="9">
-            <input class="big-button" type="button" id="calc_reset" name="calc_reset" value="C">
+            <input type="button" id="calc_reset" name="calc_reset" value="C">
+            <input type="button" id="calc_back" name="calc_back" value="Back">
             <input class="number-button" type="button" id="calc_4" name="calc_4" value="4">
             <input class="number-button" type="button" id="calc_5" name="calc_5" value="5">
             <input class="number-button" type="button" id="calc_6" name="calc_6" value="6">
@@ -87,12 +88,22 @@
             }
         });
         document.querySelector("#calc_sign").addEventListener('click', ev => {
-            calc.changeSign();
-            updateScreen(calc.nextNumber());
+            if (!calc.isBlocked()){
+                calc.changeSign();
+                updateScreen(calc.nextNumber());
+            }
         });
         document.querySelector("#calc_decimal").addEventListener('click', ev => {
-            calc.decimal();
-            updateScreen(calc.nextNumber());
+            if (!calc.isBlocked()){
+                calc.decimal();
+                updateScreen(calc.nextNumber()+'.');
+            }
+        })
+        document.querySelector("#calc_back").addEventListener('click', ev => {
+            if (!calc.isBlocked()){
+                calc.back();
+                updateScreen(calc.nextNumber());
+            }
         })
     </script>
 </body>
