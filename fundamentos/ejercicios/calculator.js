@@ -87,6 +87,7 @@ export default function Calculator(outputFunction, resumeFunction) {
                 ref.divide(value);
                 break;
         }
+        currentNumber = Number.parseFloat(currentNumber.toPrecision(15));
         ref.resetNextNumber();
     }
     // The supported operations
