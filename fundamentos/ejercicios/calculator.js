@@ -1,43 +1,63 @@
 export default class Calculator {
     #currentNumber;
-    #currentOperation;
+    #nextOperation;
     #nextNumber;
     #negative;
-    #blocked;
     #decimal;
-    constructor(){
+    #resume;
+    #blocked;
+    constructor(fnOutput, fnResume){
+        if (fnOutput && typeof (fnOutput) !== 'function'){
+		    throw new Error('A function is required to show the output')
+        }
+        if (fnResume && typeof (fnResume) !== 'function'){
+		    throw new Error('A function is required to show the resume')
+        }
+        this.fnOutput = fnOutput;
+        this.fnResume = fnResume;
         this.init();
     }
     init(){
         this.#currentNumber = 0;
-        this.#currentOperation = '+';
-        this.reset();
+        this.#nextOperation = '+';
+        this.#resume = '';
+        this.resetNextNumber();
+        this.showResume(this.#resume);
+        this.showOuput(this.#currentNumber);
     }
-    reset(){
-        this.#nextNumber = "";
+    resetNextNumber(){
+        this.#nextNumber = '';
         this.#negative = false;
         this.#blocked = false;
         this.#decimal = false;
     }
-    operate(){
-        if (this.#nextNumber){
-            let value = this.nextNumber();
-            switch (this.#currentOperation){
-                case '+':
-                    this.add(value);
-                    break;
-                case '-':
-                    this.substract(value);
-                    break;
-                case 'x':
-                    this.multiply(value);
-                    break;
-                case '/':
-                    this.divide(value);
-                    break;
-            }
-            this.reset();
+    showOuput(value){
+		if (typeof(this.fnOutput) === 'function'){
+            this.fnOutput(value);
         }
+    }
+    showResume(value){
+		if (typeof(this.fnResume) === 'function'){
+            this.fnResume(value);
+        }
+    }
+    operate(){
+        let value = this.nextNumber();
+        switch (this.#nextOperation){
+            case '+':
+                this.add(value);
+                break;
+            case '-':
+                this.substract(value);
+                break;
+            case 'x':
+                this.multiply(value);
+                break;
+            case '/':
+                this.divide(value);
+                break;
+        }
+        this.resetNextNumber();
     }
     add(value){
         this.#currentNumber += value;
@@ -51,36 +71,15 @@ export default class Calculator {
     divide(value){
         this.#currentNumber /= value;
     }
-    number(value){
+    pressNumber(value){
         if (!Number.isNaN(value)){
             this.#nextNumber += value;
         }
     }
-    back(){
-        if (this.#nextNumber.length){
-            this.#nextNumber = this.#nextNumber.slice(0,-1);
+    pressOperation(value){
+        if (!'+-x/'.includes(value)){
+            throw new Error('Operation no supported yet');
         }
-    }
-    block(){
-        this.#blocked = true;
-    }
-    isBlocked(){
-        return this.#blocked;
-    }
-    operation(value){
-        this.#currentOperation = value;
-    }
-    changeSign(){
-        this.#negative = !this.#negative;
-    }
-    decimal(){
-        if (!this.#decimal){
-            this.#nextNumber += ".";
-            this.#decimal = true;
-        }
-    }
-    currentNumber(){
-        return this.#currentNumber;
     }
     nextNumber(){
         if (!this.#nextNumber){
@@ -92,7 +91,32 @@ export default class Calculator {
         }
         return number;
     }
-    currentOperation(){
-        return this.#currentOperation;
+    changeSign(){
+        this.#negative = !this.#negative;
+        this.showOuput(this.nextNumber());
+    }
+    decimal(){
+        if (!this.#decimal){
+            this.#nextNumber += '.';
+            this.#decimal = true;
+            this.showOuput(this.nextNumber()+'.');
+        } else {
+            console.log('The number is already decimal')
+        }
+    }
+    back(){
+        if (this.#nextNumber.length){
+            this.#nextNumber = this.#nextNumber.slice(0,-1);
+            this.showOuput(this.nextNumber());
+        }
+    }
+    block(){
+        this.#blocked = true;
+    }
+    isBlocked(){
+        return this.#blocked;
+    }
+    set operation(value){
+        this.#nextOperation = value;
     }
 }
