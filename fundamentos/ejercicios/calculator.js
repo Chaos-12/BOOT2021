@@ -32,6 +32,7 @@ export default function Calculator(outputFunction, resumeFunction) {
     let nextNumber = '';
     let negative = false;
     let decimal = false;
+    let completed = false;
     ref.nextValue = function(value){
         if(value){
             nextNumber = value;
@@ -63,6 +64,7 @@ export default function Calculator(outputFunction, resumeFunction) {
         currentNumber = 0;
         nextOperation = '+';
         resume = '';
+        completed = false;
         ref.resetNextNumber();
         ref.showResume(resume);
         ref.showOutput(currentNumber);
@@ -102,6 +104,9 @@ export default function Calculator(outputFunction, resumeFunction) {
     }
     // The actions for the user
     ref.pressNumber = function(value){
+        if (completed){
+            ref.init();
+        }
         if (!Number.isNaN(value)){
             nextNumber += value;
             ref.showOutput(ref.nextValue());
@@ -121,8 +126,16 @@ export default function Calculator(outputFunction, resumeFunction) {
         ref.operation(value);
         ref.showResume(resume);
         ref.showOutput(currentNumber);
+        if('=' === value){
+            completed = true;
+        } else {
+            completed = false;
+        }
     }
     ref.pressDecimal = function(){
+        if (completed){
+            ref.init();
+        }
         if (!decimal){
             nextNumber += '.';
             decimal = true;
