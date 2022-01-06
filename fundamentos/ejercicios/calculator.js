@@ -1,122 +1,146 @@
-export default class Calculator {
-    #currentNumber;
-    #nextOperation;
-    #nextNumber;
-    #negative;
-    #decimal;
-    #resume;
-    #blocked;
-    constructor(fnOutput, fnResume){
-        if (fnOutput && typeof (fnOutput) !== 'function'){
-		    throw new Error('A function is required to show the output')
-        }
-        if (fnResume && typeof (fnResume) !== 'function'){
-		    throw new Error('A function is required to show the resume')
-        }
-        this.fnOutput = fnOutput;
-        this.fnResume = fnResume;
-        this.init();
+
+export default function Calculator(outputFunction, resumeFunction) {
+    let ref = this;
+    // To show the user an output/resume
+    if (outputFunction && typeof(outputFunction) !== 'function'){
+        throw new Error('A function is required to show the output')
     }
-    init(){
-        this.#currentNumber = 0;
-        this.#nextOperation = '+';
-        this.#resume = '';
-        this.resetNextNumber();
-        this.showResume(this.#resume);
-        this.showOuput(this.#currentNumber);
-    }
-    resetNextNumber(){
-        this.#nextNumber = '';
-        this.#negative = false;
-        this.#blocked = false;
-        this.#decimal = false;
-    }
-    showOuput(value){
-		if (typeof(this.fnOutput) === 'function'){
-            this.fnOutput(value);
+    ref.fnOutput = outputFunction;
+    ref.showOutput = function(value){
+		if (typeof(ref.fnOutput) === 'function'){
+            ref.fnOutput(value);
         }
     }
-    showResume(value){
-		if (typeof(this.fnResume) === 'function'){
-            this.fnResume(value);
+    if (resumeFunction && typeof(resumeFunction) !== 'function'){
+        throw new Error('A function is required to show the resume')
+    }
+    let resume = '';
+    ref.fnResume = resumeFunction;
+    ref.showResume = function(value){
+		if (typeof(ref.fnResume) === 'function'){
+            ref.fnResume(value);
         }
     }
-    operate(){
-        let value = this.nextNumber();
-        switch (this.#nextOperation){
-            case '+':
-                this.add(value);
-                break;
-            case '-':
-                this.substract(value);
-                break;
-            case 'x':
-                this.multiply(value);
-                break;
-            case '/':
-                this.divide(value);
-                break;
+    // The variables needed to operate
+    let currentNumber = 0;
+    ref.currentValue = function(value){
+        if(value){
+            currentNumber = value;
         }
-        this.resetNextNumber();
+        return currentNumber;
     }
-    add(value){
-        this.#currentNumber += value;
-    }
-    substract(value){
-        this.#currentNumber -= value;
-    }
-    multiply(value){
-        this.#currentNumber *= value;
-    }
-    divide(value){
-        this.#currentNumber /= value;
-    }
-    pressNumber(value){
-        if (!Number.isNaN(value)){
-            this.#nextNumber += value;
+    let nextNumber = '';
+    let negative = false;
+    let decimal = false;
+    ref.nextValue = function(value){
+        if(value){
+            nextNumber = value;
         }
-    }
-    pressOperation(value){
-        if (!'+-x/'.includes(value)){
-            throw new Error('Operation no supported yet');
-        }
-    }
-    nextNumber(){
-        if (!this.#nextNumber){
+        if (!nextNumber || nextNumber === '.'){
             return 0;
         }
-        let number = Number.parseFloat(this.#nextNumber);
-        if (this.#negative) {
+        let number = Number.parseFloat(nextNumber);
+        if (negative) {
             number *= -1;
         }
         return number;
     }
-    changeSign(){
-        this.#negative = !this.#negative;
-        this.showOuput(this.nextNumber());
+    let nextOperation = '+';
+    ref.operation = function(value){
+        if(value){
+            nextOperation = value;
+        }
+        return nextOperation;
     }
-    decimal(){
-        if (!this.#decimal){
-            this.#nextNumber += '.';
-            this.#decimal = true;
-            this.showOuput(this.nextNumber()+'.');
+    // Reset all variables related to nextNumber
+    ref.resetNextNumber = function(){
+        nextNumber = '';
+        negative = false;
+        decimal = false;
+    }
+    // Initial configuration of variables related to operations
+    ref.init = function(){
+        currentNumber = 0;
+        nextOperation = '+';
+        resume = '';
+        ref.resetNextNumber();
+        ref.showResume(resume);
+        ref.showOutput(currentNumber);
+    }
+    ref.init();
+    // To do the next planned operation
+    ref.operate = function(){
+        let value = ref.nextValue();
+        switch (nextOperation){
+            case '+':
+                ref.add(value);
+                break;
+            case '-':
+                ref.substract(value);
+                break;
+            case 'x':
+                ref.multiply(value);
+                break;
+            case '/':
+                ref.divide(value);
+                break;
+        }
+        ref.resetNextNumber();
+    }
+    // The supported operations
+    ref.add = function(value){
+        currentNumber += value;
+    }
+    ref.substract = function(value){
+        currentNumber -= value;
+    }
+    ref.multiply = function(value){
+        currentNumber *= value;
+    }
+    ref.divide = function(value){
+        currentNumber /= value;
+    }
+    // The actions for the user
+    ref.pressNumber = function(value){
+        if (!Number.isNaN(value)){
+            nextNumber += value;
+            ref.showOutput(ref.nextValue());
+        }
+    }
+    ref.pressOperation = function(value){
+        if (!'+-x/='.includes(value)){
+            throw new Error('Operation no supported yet');
+        }
+        if (nextNumber.length) {
+            resume += ' '+ref.nextValue();
+            ref.operate();
         } else {
-            console.log('The number is already decimal')
+            resume = resume.slice(0,-2);
+        }
+        resume += ' '+value;
+        ref.operation(value);
+        ref.showResume(resume);
+        ref.showOutput(currentNumber);
+    }
+    ref.pressDecimal = function(){
+        if (!decimal){
+            nextNumber += '.';
+            decimal = true;
+            ref.showOutput(ref.nextValue()+'.');
+        } else {
+            console.log('The number is already decimal');
         }
     }
-    back(){
-        if (this.#nextNumber.length){
-            this.#nextNumber = this.#nextNumber.slice(0,-1);
-            this.showOuput(this.nextNumber());
+    ref.changeSign = function(){
+        if(ref.nextValue()){
+            negative = !negative;
+            ref.showOutput(ref.nextValue());
         }
     }
-    block(){
-        this.#blocked = true;
-    }
-    isBlocked(){
-        return this.#blocked;
-    }
-    set operation(value){
-        this.#nextOperation = value;
+    ref.goBack = function(){
+        if (nextNumber.length){
+            nextNumber = nextNumber.slice(0,-1);
+            ref.showOutput(ref.nextValue());
+        }
     }
 }

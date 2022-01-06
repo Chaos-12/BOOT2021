@@ -13,9 +13,9 @@
             <h1>My first calculator</h1>
         </head>
         <main class="screen">
-            <output type=textarea id="screen__lastValue" name="screen__lastValue" value="0"> </output>
+            <output class="screen__resume" type=textarea id="screen__resume" name="screen__resume"></output>
             <br>
-            <output class="screen__output" type=textarea id="screen__nextValue" name="screen__nextValue" value="0">0</output>
+            <output class="screen__output" type=textarea id="screen__output" name="screen__output" value="0">0</output>
         </main>
         <menu class="button-layout">
             <input class="button number-button" type="button" id="calc_7" name="calc_7" value="7">
@@ -36,86 +36,35 @@
             <input class="button" type="button" id="calc_sign" name="calc_sing" value="+/-">
             <input class="button number-button" type="button" id="calc_0" name="calc_0" value="0">
             <input class="button" type="button" id="calc_decimal" name="calc_decimal" value=".">
-            <input class="button big-button" type="button" id="calc_equals" name="calc_equals" value="=">
+            <input class="button operation-button big-button" type="button" id="calc_equals" name="calc_equals" value="=">
         </menu>
     </div>
     <script type="module">
         import Calculator from "./calculator.js";
-        let txtOutput = document.querySelector("#screen__nextValue");
-        let txtResumen = document.querySelector("#screen__lastValue");
+        let txtOutput = document.querySelector("#screen__output");
+        let txtResume = document.querySelector("#screen__resume");
         let calc = new Calculator(
-            value => txtOutput.textContent = value.replace(/\./g, ','), 
-			value => txtResumen.textContent = value.replace(/\./g, ',')
+            value => txtOutput.textContent = value, 
+			value => txtResume.textContent = value
         );
-        let lastWasNumber = false;
-        let updateScreen = function(number){
-            newValueItem.value = number;
-        }
-        let appendToScreen = function(text){
-            let textNode = document.createTextNode(' '+text);
-            lastValueItem.appendChild(textNode);
-        }
-        let resetScreen = function() {
-            lastValueItem.textContent = "";
-            updateScreen("0");
-        }
-        let removeLastOperation = function() {
-            lastValueItem.innerHTML = lastValueItem.innerHTML.slice(0,-2);
-        }
         document.querySelectorAll(".number-button").forEach( button => {
             button.addEventListener('click', ev => {
-                if (calc.isBlocked()){
-                    resetScreen();
-                    calc.init();
-                }
-                calc.pressNumber(button.value);
-                updateScreen(calc.nextNumber());
-                lastWasNumber = true;
+                calc.pressNumber(button.value)
             });
         });
         document.querySelectorAll(".operation-button").forEach( button => {
             button.addEventListener('click', ev => {
-                if (lastWasNumber) {
-                    appendToScreen(calc.nextNumber());
-                    calc.operate();
-                } else {
-                    removeLastOperation();
-                }
-                appendToScreen(button.value);
                 calc.pressOperation(button.value);
-                updateScreen(calc.currentNumber());
-                lastWasNumber = false;
             });
         });
-        document.querySelector("#calc_reset").addEventListener('click', calc.init);
-        document.querySelector("#calc_equals").addEventListener('click', ev => {
-            if (!calc.isBlocked()){
-                appendToScreen(calc.nextNumber());
-                appendToScreen("=");
-                calc.operate();
-                calc.block();
-                updateScreen(calc.currentNumber());
-            }
-            lastWasNumber = false;
-        });
-        document.querySelector("#calc_sign").addEventListener('click', ev => {
-            if (!calc.isBlocked()){
-                calc.changeSign();
-                updateScreen(calc.nextNumber());
-            }
-        });
-        document.querySelector("#calc_decimal").addEventListener('click', ev => {
-            if (!calc.isBlocked()){
-                calc.decimal();
-                updateScreen(calc.nextNumber()+'.');
-            }
-        })
-        document.querySelector("#calc_back").addEventListener('click', ev => {
-            if (!calc.isBlocked()){
-                calc.back();
-                updateScreen(calc.nextNumber());
-            }
-        })
+        document.querySelector("#calc_reset")
+                .addEventListener('click', calc.init);
+        document.querySelector("#calc_sign")
+                .addEventListener('click', calc.changeSign);
+        document.querySelector("#calc_decimal")
+                .addEventListener('click', calc.pressDecimal);
+        document.querySelector("#calc_back")
+                .addEventListener('click', calc.goBack);
     </script>
 </body>
 </html>

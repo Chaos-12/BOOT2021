@@ -30,6 +30,10 @@
     font-size: 4rem;
 }
 
+.screen__resume {
+    font-size: 1.2rem;
+}
+
 .big-button {
     grid-column: span 2;
 }
@@ -52,6 +56,10 @@
     font-size: 1.2rem;
 }
 
+.button:hover {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
 .number-button {
     background-color: var(--colorGreen) !important;
 }
@@ -62,8 +70,4 @@
 
 .alert-button {
     background-color: var(--colorRed) !important;
-}
-
-.button:hover {
-    background-color: rgba(255, 255, 255, 0.3) !important;
 }
