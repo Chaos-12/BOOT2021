@@ -44,8 +44,8 @@
         let txtOutput = document.querySelector("#screen__output");
         let txtResume = document.querySelector("#screen__resume");
         let calc = new Calculator(
-            value => txtOutput.textContent = value, 
-			value => txtResume.textContent = value
+            value => txtOutput.textContent = value.toString().replace(/\./g, ','), 
+			value => txtResume.textContent = value.toString().replace(/\./g, ',')
         );
         document.querySelectorAll(".number-button").forEach( button => {
             button.addEventListener('click', ev => {
