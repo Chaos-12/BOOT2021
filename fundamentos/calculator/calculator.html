@@ -9,13 +9,25 @@
 </head>
 <body>
     <div class="calculator">
-        <head>
+        <!-- <head>
             <h1>My first calculator</h1>
-        </head>
-        <main class="screen">
-            <output class="screen__resume" type=textarea id="screen__resume" name="screen__resume"></output>
-            <br>
-            <output class="screen__output" type=textarea id="screen__output" name="screen__output" value="0">0</output>
+        </head> -->
+        <main class="screen text-left">
+            <output class="screen__resume" type="textarea" id="screen__resume" name="screen__resume"></output><br>
+            <output class="screen__output" type="textarea" cols="16" id="screen__output" name="screen__output" value="0">0</output><br>
+            <input type="button" value="Conversion">
+            <div class="screen__conversion text-left" hidden>
+                <label>Bin</label>
+                <output type="textarea" data-digits="2"></output>
+            </div>
+            <div class="screen__conversion text-left" hidden>
+                <label>Oct</label>
+                <output type="textarea" data-digits="8"></output>
+            </div>
+            <div class="screen__conversion text-left" hidden>
+                <label>Hex</label>
+                <output type="textarea" data-digits="16"></output>
+            </div>
         </main>
         <menu class="button-layout">
             <input type="button" class="button button__number green" value="7">
@@ -40,11 +52,18 @@
         </menu>
     </div>
     <script type="module">
-        import Calculator from "./calculator.js";
+        import {Calculator, convertPositiveIntegerTo as convertTo} from "./calculator.js";
         let txtOutput = document.querySelector("#screen__output");
         let txtResume = document.querySelector("#screen__resume");
+        let txtConversion = document.querySelectorAll(".screen__conversion output");
+        let showOutput = function(value){
+            txtOutput.textContent = value.toString().replace(/\./g, ',');
+            for(let i=0; i<txtConversion.length; i++){
+                txtConversion[i].value = convertTo(value, txtConversion[i].dataset.digits);
+            }
+        }
         let calc = new Calculator(
-            value => txtOutput.textContent = value.toString().replace(/\./g, ','), 
+            showOutput, 
 			value => txtResume.textContent = value.toString().replace(/\./g, ',')
         );
         document.querySelectorAll(".button__number").forEach( button => {
@@ -65,6 +84,13 @@
                 .addEventListener('click', calc.pressDecimal);
         document.querySelector("#calc_back")
                 .addEventListener('click', calc.goBack);
+        document.querySelector(".screen input")
+                .addEventListener('click', ev => {
+                    document.querySelectorAll(".screen__conversion")
+                            .forEach(element => {
+                                element.hidden = !element.hidden;
+                            });
+                });
     </script>
 </body>
 </html>

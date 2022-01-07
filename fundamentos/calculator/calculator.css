@@ -3,13 +3,21 @@
     --color-trans: 0.7;
 }
 
+body {
+    background: linear-gradient(170deg, blue, rgb(120, 120, 252));
+}
+
 .calculator {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     font: 1rem "Lucida Grande", Helvetica, Arial, sans-serif;
     border: 1px ridge black;
     padding: 5px;
     text-align: center;
     min-width: 250px;
-    max-width: 350px;
+    max-width: 100%;
     background-color: rgba(0, 0, 0, 0.6);
     color: white;
 }
@@ -20,8 +28,11 @@
 }
 
 .screen {
-    text-align: end;
-    padding: 1rem;
+    text-align: end !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }
 
 .screen__output {
@@ -32,6 +43,24 @@
 .screen__resume {
     color: rgba(255, 255, 255, 0.8);
     font-size: 1.2rem;
+}
+
+.screen input {
+    padding: auto;
+    border: 0px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    width: 100%;
+    margin: 5px;
+}
+
+.screen__conversion output {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;}
+
+.text-left {
+    text-align: left;
 }
 
 .bigButton {
@@ -49,10 +78,10 @@
 }
 
 .button {
-    background-color: rgb(var(--color-ref),var(--color-ref),var(--color-ref));
+    background-color: rgba(var(--color-ref),var(--color-ref),var(--color-ref),var(--color-trans));
     color: white;
     transition-duration: 0.4s;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     padding: 0px;
     min-height: 48px;
     min-width: 48px;
@@ -62,22 +91,62 @@
 }
 
 .red {
-    background-color: rgb(var(--color-ref),0,0)!important;
+    background-color: rgba(var(--color-ref),0,0,var(--color-trans))!important;
 }
 .red:hover {
     background-color: rgba(255,0,0,var(--color-trans))!important;
 }
 
 .green {
-    background-color: rgb(0,var(--color-ref),0)!important;
+    background-color: rgba(0,var(--color-ref),0,var(--color-trans))!important;
 }
 .green:hover {
     background-color: rgba(0,255,0,var(--color-trans))!important;
 }
 
 .blue {
-    background-color: rgb(0,0,var(--color-ref))!important;
+    background-color: rgba(0,0,var(--color-ref),var(--color-trans))!important;
 }
 .blue:hover {
     background-color: rgba(0,0,255,var(--color-trans))!important;
+}
+
+@media (min-width: 576px) {
+    .calculator {
+        max-width: 450px!important;
+        font-size: 1.2em !important;
+    }
+    .screen__output, .button {
+        font-size: 3rem !important;
+    }  
+    .screen__resume {
+        font-size: 1.2em !important;
+    }
+}
+  @media (min-width: 768px) {
+    .calculator {
+        max-width: 680px !important;
+        font-size: 1.8em !important;
+    }
+    .screen__output, .button {
+        font-size: 4rem !important;
+    }  
+    .screen__resume {
+        font-size: 1.8em !important;
+    }
+}
+  @media (min-width: 992px) {
+    .calculator {
+        max-width: 950px !important;
+        font-size: 2em !important;
+    }
+    .screen__output, .button {
+        font-size: 5rem !important;
+    }  
+    .screen__resume {
+        font-size: 2em !important;
+    }
+    .screen__conversion label{
+        font-size: 1.5em !important;
+    }
 }

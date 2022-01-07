@@ -1,4 +1,4 @@
-export default function Calculator(outputFunction, resumeFunction) {
+export function Calculator(outputFunction, resumeFunction) {
     let ref = this;
     // To show the user an output/resume
     if (outputFunction && typeof(outputFunction) !== 'function'){
@@ -113,9 +113,9 @@ export default function Calculator(outputFunction, resumeFunction) {
         if (completed){
             ref.init();
         }
-        if (!Number.isNaN(value)){
+        if (!Number.isNaN(value) && nextNumber.length < 9){
             nextNumber += value;
-            ref.showOutput(ref.nextValue());
+            ref.showOutput(nextNumber);
         }
     }
     ref.pressOperation = function(value){
@@ -130,6 +130,9 @@ export default function Calculator(outputFunction, resumeFunction) {
             if(!resume.length) {
                 resume += ' '+ref.nextValue();
             }
+        }
+        if (completed) {
+            resume = ''+currentNumber;
         }
         resume += ' '+value;
         ref.operation(value);
@@ -146,9 +149,12 @@ export default function Calculator(outputFunction, resumeFunction) {
             ref.init();
         }
         if (!decimal){
+            if (nextNumber === ''){
+                nextNumber = '0';
+            }
             nextNumber += '.';
             decimal = true;
-            ref.showOutput(ref.nextValue()+'.');
+            ref.showOutput(nextNumber);
         } else {
             console.log('The number is already decimal');
         }
@@ -156,13 +162,31 @@ export default function Calculator(outputFunction, resumeFunction) {
     ref.changeSign = function(){
         if(ref.nextValue()){
             negative = !negative;
-            ref.showOutput(ref.nextValue());
+            ref.showOutput(nextNumber);
         }
     }
     ref.goBack = function(){
         if (nextNumber.length){
             nextNumber = nextNumber.slice(0,-1);
-            ref.showOutput(ref.nextValue());
+            if(nextNumber.length){
+                ref.showOutput(nextNumber);
+            } else {
+                ref.showOutput('0');
+            }
         }
     }
+}
+
+export function convertPositiveIntegerTo(value = '0', nDigits = '2'){
+    if (typeof value === 'number'){
+        if (Number.isInteger(value) && 0<=value<=999999999){
+            return value.toString(nDigits);
+        }
+    }
+    if (typeof value === 'string' || value instanceof String){
+        if (!value.includes('-') && !value.includes('.') && value.length <= 10){
+            return Number.parseInt(value).toString(nDigits);
+        }
+    }
+    return '-';
 }
