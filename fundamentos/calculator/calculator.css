@@ -1,20 +1,22 @@
 :root {
-    --color-background: rgba(0, 0, 0, 0.6);
-    --color-ref: 70;
-    --colorRed: rgb(var(--color-ref),0,0);
-    --colorGreen: rgb(0,var(--color-ref),0);
-    --colorBlue: rgb(0,0,var(--color-ref));
-    --colorBlack: rgb(255-var(--color-ref), 255-var(--color-ref), 255-var(--color-ref));
+    --color-ref: 60;
+    --color-trans: 0.7;
 }
 
 .calculator {
+    font: 1rem "Lucida Grande", Helvetica, Arial, sans-serif;
     border: 1px ridge black;
-    padding: 1px;
+    padding: 5px;
     text-align: center;
     min-width: 250px;
     max-width: 350px;
-    background-color: var(--color-background);
+    background-color: rgba(0, 0, 0, 0.6);
     color: white;
+}
+
+.calculator h1 {
+    font-size: 1.2rem;
+    margin: 2px;
 }
 
 .screen {
@@ -32,40 +34,50 @@
     font-size: 1.2rem;
 }
 
-.big-button {
+.bigButton {
     grid-column: span 2;
 }
 
 .button-layout {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-gap: 2px;
-    padding: 1px;
-    margin: 2px;
+    grid-gap: 0px;
+    padding: 0px;
+    margin: 0px;
     box-sizing: border-box;
-    width: 100%;
     min-height: 8rem;
 }
 
 .button {
-    background-color: var(--colorBlack);
+    background-color: rgb(var(--color-ref),var(--color-ref),var(--color-ref));
     color: white;
     transition-duration: 0.4s;
     font-size: 1.2rem;
+    padding: 0px;
+    min-height: 48px;
+    min-width: 48px;
 }
-
 .button:hover {
-    background-color: rgba(255, 255, 255, 0.3) !important;
+    background-color: rgba(150, 150, 150, var(--color-trans)) !important;
 }
 
-.number-button {
-    background-color: var(--colorGreen) !important;
+.red {
+    background-color: rgb(var(--color-ref),0,0)!important;
+}
+.red:hover {
+    background-color: rgba(255,0,0,var(--color-trans))!important;
 }
 
-.operation-button {
-    background-color: var(--colorBlue) !important;
+.green {
+    background-color: rgb(0,var(--color-ref),0)!important;
+}
+.green:hover {
+    background-color: rgba(0,255,0,var(--color-trans))!important;
 }
 
-.alert-button {
-    background-color: var(--colorRed) !important;
+.blue {
+    background-color: rgb(0,0,var(--color-ref))!important;
+}
+.blue:hover {
+    background-color: rgba(0,0,255,var(--color-trans))!important;
 }
