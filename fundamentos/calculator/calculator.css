@@ -122,6 +122,9 @@ body {
     .screen__resume {
         font-size: 1.2em !important;
     }
+    .screen__conversion {
+        font-size: 1em !important;
+    }
 }
   @media (min-width: 768px) {
     .calculator {
@@ -133,6 +136,9 @@ body {
     }  
     .screen__resume {
         font-size: 1.8em !important;
+    }
+    .screen__conversion {
+        font-size: 1.4em !important;
     }
 }
   @media (min-width: 992px) {
@@ -146,7 +152,7 @@ body {
     .screen__resume {
         font-size: 2em !important;
     }
-    .screen__conversion label{
+    .screen__conversion {
         font-size: 1.5em !important;
     }
 }
