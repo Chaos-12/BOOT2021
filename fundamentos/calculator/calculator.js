@@ -1,4 +1,3 @@
-
 export default function Calculator(outputFunction, resumeFunction) {
     let ref = this;
     // To show the user an output/resume
@@ -115,7 +114,7 @@ export default function Calculator(outputFunction, resumeFunction) {
     }
     ref.pressOperation = function(value){
         if (!'+-x/='.includes(value)){
-            throw new Error('Operation no supported yet');
+            throw new Error('Operation not supported yet');
         }
         if (nextNumber.length) {
             resume += ' '+ref.nextValue();
