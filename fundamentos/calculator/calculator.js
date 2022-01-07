@@ -34,22 +34,30 @@ export function Calculator(outputFunction, resumeFunction) {
     let completed = false;
     ref.nextValue = function(value){
         if(value){
-            nextNumber = value;
+            if (typeof value === 'number'){
+                nextNumber = value;
+            }
+            if (typeof value === 'string' || value instanceof String){
+                nextNumber = Number.parseFloat(value);
+            }
+            if (nextNumber < 0){
+                nextNumber *= -1;
+                negative = true;
+            } else {
+                negative = false;
+            }
+            nextNumber = nextNumber.toString();
+            if (nextNumber.includes('.')){
+                decimal = true;
+            }
         }
-        if (ref.isNextEmpty()){
+        if (!nextNumber){
             return 0;
         }
-        let number = Number.parseFloat(nextNumber);
         if (negative) {
-            number *= -1;
+            return '-'.concat(nextNumber);
         }
-        return number;
-    }
-    ref.isNextEmpty = function(){
-        if(!nextNumber || nextNumber === '.'){
-            return true;
-        }
-        return false;
+        return nextNumber;
     }
     let nextOperation = '+';
     ref.operation = function(value){
@@ -77,7 +85,7 @@ export function Calculator(outputFunction, resumeFunction) {
     ref.init();
     // To do the next planned operation
     ref.operate = function(){
-        let value = ref.nextValue();
+        let value = Number.parseFloat(ref.nextValue());
         switch (nextOperation){
             case '+':
                 ref.add(value);
@@ -115,7 +123,7 @@ export function Calculator(outputFunction, resumeFunction) {
         }
         if (!Number.isNaN(value) && nextNumber.length < 9){
             nextNumber += value;
-            ref.showOutput(nextNumber);
+            ref.showOutput(ref.nextValue());
         }
     }
     ref.pressOperation = function(value){
@@ -123,18 +131,18 @@ export function Calculator(outputFunction, resumeFunction) {
             throw new Error('Operation not supported yet');
         }
         if (nextNumber.length) {
-            resume += ' '+ref.nextValue();
+            resume += ' '.concat(ref.nextValue());
             ref.operate();
         } else {
             resume = resume.slice(0,-2);
             if(!resume.length) {
-                resume += ' '+ref.nextValue();
+                resume += ' '.concat(ref.nextValue());
             }
         }
         if (completed) {
-            resume = ''+currentNumber;
+            resume = ''.concat(currentNumber);
         }
-        resume += ' '+value;
+        resume += ' '.concat(value);
         ref.operation(value);
         ref.showResume(resume);
         ref.showOutput(currentNumber);
@@ -154,7 +162,7 @@ export function Calculator(outputFunction, resumeFunction) {
             }
             nextNumber += '.';
             decimal = true;
-            ref.showOutput(nextNumber);
+            ref.showOutput(ref.nextValue());
         } else {
             console.log('The number is already decimal');
         }
@@ -162,14 +170,14 @@ export function Calculator(outputFunction, resumeFunction) {
     ref.changeSign = function(){
         if(ref.nextValue()){
             negative = !negative;
-            ref.showOutput(nextNumber);
+            ref.showOutput(ref.nextValue());
         }
     }
     ref.goBack = function(){
         if (nextNumber.length){
             nextNumber = nextNumber.slice(0,-1);
             if(nextNumber.length){
-                ref.showOutput(nextNumber);
+                ref.showOutput(ref.nextValue());
             } else {
                 ref.showOutput('0');
             }
