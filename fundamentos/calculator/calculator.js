@@ -36,7 +36,7 @@ export default function Calculator(outputFunction, resumeFunction) {
         if(value){
             nextNumber = value;
         }
-        if (!nextNumber || nextNumber === '.'){
+        if (ref.isNextEmpty()){
             return 0;
         }
         let number = Number.parseFloat(nextNumber);
@@ -44,6 +44,12 @@ export default function Calculator(outputFunction, resumeFunction) {
             number *= -1;
         }
         return number;
+    }
+    ref.isNextEmpty = function(){
+        if(!nextNumber || nextNumber === '.'){
+            return true;
+        }
+        return false;
     }
     let nextOperation = '+';
     ref.operation = function(value){
@@ -121,6 +127,9 @@ export default function Calculator(outputFunction, resumeFunction) {
             ref.operate();
         } else {
             resume = resume.slice(0,-2);
+            if(!resume.length) {
+                resume += ' '+ref.nextValue();
+            }
         }
         resume += ' '+value;
         ref.operation(value);
