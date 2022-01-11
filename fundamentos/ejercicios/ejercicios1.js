@@ -96,12 +96,12 @@ export function isValidNif(nif) {
     Ejemplo de palíndromo complejo: "La ruta nos aporto otro paso natural"
  */
 export function isPalindrome(input) {
-    if (!input.length) {
+    if (input === undefined || input === null || !input.length) {
         return false;
     }
     let test = input;
     if (typeof test === "string" || test instanceof String) {
-        test = input.replace(/\s/g, '').toLowerCase();
+        test = input.replace(/[.,?¿!¡\s]/g, '').toLowerCase();
     }
     let j = test.length-1;
     for(let i=0; i<j; i++) {

@@ -147,16 +147,48 @@ describe("Ejercicios Bloque 1", function(){
     });
 
     describe("Ejercicio 6: Palindrome", function(){
-        ['12345678Z', '12345678-Z', '12345678z', '12345678-z', '0T', '00010X'].forEach(expression =>{
-            it(`OK format: nif = ${expression}`, function(){
-                expect(isPalindrome(expression)).toBe(true);
-            })
+
+        function asString(array){
+            let result = '';
+            if(array.length){
+                for(let i=0; i<array.length; i++){
+                    if (typeof array[i] === 'string'){
+                        result = result.concat(`'${array[i]}',`)
+                    } else {
+                        result = result.concat(`${array[i]},`)
+                    }
+                }
+                result = result.slice(0,-1);
+            }
+            return result;
+        }
+        ['ABCBA', 'AbCbA', 'ABCBa', 'A BCBA', 'Radar', 'La ruta nos aporto otro paso natural.',
+            'A nut for a jar of tuna.', 'Live on time, emit no evil.', 'Do geese see God?']
+        .forEach(string =>{
+            it(`OK: string = '${string}'`, function(){
+                expect(isPalindrome(string)).toBe(true);
+            });
         });
 
-        // ['Z12345678', 'Random', 77, '000000000T', '123456789B', '00000T000', undefined, null].forEach(expression =>{
-        //     it(`KO format: nif = ${expression}`, function(){
-        //         expect(isPalindrome(expression)).toBe(false);
-        //     })
-        // });
+        ['', undefined, null, 'ABC', 'Random']
+        .forEach(string =>{
+            it(`KO: string = '${string}'`, function(){
+                expect(isPalindrome(string)).toBe(false);
+            });
+        });
+
+        [[0,1,2,1,0], [0,'1',undefined,'1',0], ['a','b',1,'b','a'], ['']]
+        .forEach(array =>{
+            it(`OK: array = [${asString(array)}]`, function(){
+                expect(isPalindrome(array)).toBe(true);
+            });
+        });
+
+        [['A','B','C','B','a'], ['0',1,0], []]
+        .forEach(array =>{
+            it(`KO: array = [${asString(array)}]`, function(){
+                expect(isPalindrome(array)).toBe(false);
+            });
+        });
     })
 });
