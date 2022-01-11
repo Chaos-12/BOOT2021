@@ -25,22 +25,22 @@ export function randomFromRange(range = 1, from = 0) {
  */
 export function guessRandomNumber(tries = 10, range = 100, from = 0) {
     let secret = Math.round(randomFromRange(range, from));
-    console.log(`I just wrote an integer number between ${from} and ${from+range}.`)
-    console.log(`Can you guess my number in ${tries} tries?`)
+    alert(`I just wrote an integer number between ${from} and ${from+range}.`)
+    alert(`Can you guess my number in ${tries} tries?`)
     for (let i = 1; i <= tries; i ++) {
         let yourGuess = prompt(`Guess my number! (${i}/${tries})`);
         if (yourGuess == secret) {
-            console.log(`Exactly! My number was ${secret}!`);
+            alert(`Exactly! My number was ${secret}!`);
             return true;
         }
         if (yourGuess < secret) {
-            console.log(`Sorry, ${yourGuess} is too low...`);
+            alert(`Sorry, ${yourGuess} is too low...`);
         }
         if (yourGuess > secret) {
-            console.log(`Sorry, ${yourGuess} is too high...`)
+            alert(`Sorry, ${yourGuess} is too high...`)
         }
     }
-    console.log(`You have no more tries: my number was ${secret}.`)
+    alert(`You have no more tries: my number was ${secret}.`)
     return false;
 }
 
