@@ -52,7 +52,7 @@ export function Calculator(outputFunction, resumeFunction) {
             }
         }
         if (!nextNumber){
-            return 0;
+            return '0';
         }
         if (negative) {
             return '-'.concat(nextNumber);
