@@ -5,17 +5,8 @@ import {computeLimitEratosthenes, primeEratosthenes} from "./eratosthenes.js";
 /* Ejercicio 1: 
     Crear una función que devuelva un numero aleatorio (Math.random()) dentro del rango dado.
  */
-export function randomFromRange(range = 1, from = 0) {
-    if (range < 0) {
-        throw new Error(`Range can't be negative`);
-    }
-    if (range === null){
-        range = 1;
-    }
-    if (from === null){
-        from = 0;
-    }
-    return Number.parseFloat(from) + Math.random()*range;
+function randomFromRange(range = 1, from = 0) {
+    return from + Math.random()*range;
 }
 
 /* Ejercicio 2:
@@ -23,7 +14,7 @@ export function randomFromRange(range = 1, from = 0) {
     informar si es igual, mayor o menor. Hay un máximo de 10 intentos para encontrar 
     el número que sea igual.
  */
-export function guessRandomNumber(tries = 10, range = 100, from = 0) {
+function guessRandomNumber(tries = 10, range = 100, from = 0) {
     let secret = Math.round(randomFromRange(range, from));
     console.log(`I just wrote an integer number between ${from} and ${from+range}.`)
     console.log(`Can you guess my number in ${tries} tries?`)
@@ -48,7 +39,7 @@ export function guessRandomNumber(tries = 10, range = 100, from = 0) {
     Crear una función que devuelva un array con el numero de elementos indicado,
     inicializados al valor suministrado.
  */
-export function getRepeatedArray(length, value) {
+function getRepeatedArray(length = 1, value = 0) {
     let array = [];
     for (let i=0; i<length; i++) {
         array[i] = value;
@@ -59,7 +50,7 @@ export function getRepeatedArray(length, value) {
 /* Ejercicio 4:
     Crear una función que devuelva un determinado número de números primos.
  */
-export function getFirstPrimes(nPrimes) {
+function getFirstPrimes(nPrimes) {
     let primeList = [];
     let limit = computeLimitEratosthenes(nPrimes);
     let eratosthenes = primeEratosthenes(limit);
@@ -74,7 +65,7 @@ export function getFirstPrimes(nPrimes) {
 /* Ejercicio 5:
     Crear una función que valide un NIF.
  */
-export function isValidNif(nif) {
+function isValidNif(nif) {
     if (typeof nif === "string" || nif instanceof String) {
         const validNifLetters = "TRWAGMYFPDXBNJZSQVHLCKE";
         const regExpNif = new RegExp(`^[0-9]{1,8}[${validNifLetters}]$`);
@@ -95,7 +86,7 @@ export function isValidNif(nif) {
     un palíndromo, es decir, si se lee de la misma forma desde la izquierda y desde la derecha. 
     Ejemplo de palíndromo complejo: "La ruta nos aporto otro paso natural"
  */
-export function isPalindrome(input) {
+function isPalindrome(input) {
     if (!input.length) {
         return false;
     }
