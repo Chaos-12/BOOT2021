@@ -148,20 +148,6 @@ describe("Ejercicios Bloque 1", function(){
 
     describe("Ejercicio 6: Palindrome", function(){
 
-        function asString(array){
-            let result = '';
-            if(array.length){
-                for(let i=0; i<array.length; i++){
-                    if (typeof array[i] === 'string'){
-                        result = result.concat(`'${array[i]}',`)
-                    } else {
-                        result = result.concat(`${array[i]},`)
-                    }
-                }
-                result = result.slice(0,-1);
-            }
-            return result;
-        }
         ['ABCBA', 'AbCbA', 'ABCBa', 'A BCBA', 'Radar', 'La ruta nos aporto otro paso natural.',
             'A nut for a jar of tuna.', 'Live on time, emit no evil.', 'Do geese see God?']
         .forEach(string =>{
@@ -176,6 +162,21 @@ describe("Ejercicios Bloque 1", function(){
                 expect(isPalindrome(string)).toBe(false);
             });
         });
+        
+        function asString(array){
+            let result = '';
+            if(array.length){
+                for(let i=0; i<array.length; i++){
+                    if (typeof array[i] === 'string'){
+                        result = result.concat(`'${array[i]}',`)
+                    } else {
+                        result = result.concat(`${array[i]},`)
+                    }
+                }
+                result = result.slice(0,-1);
+            }
+            return result;
+        }
 
         [[0,1,2,1,0], [0,'1',undefined,'1',0], ['a','b',1,'b','a'], ['']]
         .forEach(array =>{
