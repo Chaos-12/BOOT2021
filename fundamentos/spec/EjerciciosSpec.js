@@ -178,7 +178,7 @@ describe("Ejercicios Bloque 1", function(){
             return result;
         }
 
-        [[0,1,2,1,0], [0,'1',undefined,'1',0], ['a','b',1,'b','a'], ['']]
+        [[0,1,2,1,0], [0,'1',undefined, 2, undefined,'1',0], ['a','b',1,'b','a'], ['']]
         .forEach(array =>{
             it(`OK: array = [${asString(array)}]`, function(){
                 expect(isPalindrome(array)).toBe(true);
