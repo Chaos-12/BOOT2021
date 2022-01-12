@@ -8,10 +8,10 @@ describe("Calculator tests:", function(){
         calc = new Calculator();
     });
 
-    describe("Input a string:", function(){
+    describe("Press a number:", function(){
         let numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '12', '456','123456789'];
         numbers.forEach(number => {
-            it(`Press number ${number}`, function(){
+            it(`Press ${number}`, function(){
                 for(let i=0; i<number.length; i++){
                     calc.pressNumber(number[i]);
                 }
@@ -20,10 +20,10 @@ describe("Calculator tests:", function(){
         });
     });
 
-    describe("Input an operation:", function(){
-        let operations = ['+', '-', 'x', '/', '=']
+    describe("Press an operation:", function(){
+        let operations = ['+', '-', 'x', '/', '='];
         operations.forEach(op => {
-            it(`Press operation ${op}`, function(){
+            it(`Press ${op}`, function(){
                 calc.pressOperation(op);
                 expect(calc.operation()).toBe(op);
             });
@@ -81,13 +81,15 @@ describe("Calculator tests:", function(){
 
     describe("Support functionalities:", function(){
         it("Change sign", function(){
-            calc.nextValue(0);
-            expect(calc.nextValue()).not.toContain('-');
-            calc.changeSign();
-            expect(calc.nextValue()).not.toContain('-');
             calc.nextValue(1);
             calc.changeSign();
             expect(calc.nextValue()).toContain('-');
+            calc.changeSign();
+            expect(calc.nextValue()).not.toContain('-');
+        });
+        it("Sign doesn't change if number is 0", function(){
+            calc.nextValue(0);
+            expect(calc.nextValue()).not.toContain('-');
             calc.changeSign();
             expect(calc.nextValue()).not.toContain('-');
         });
@@ -96,6 +98,10 @@ describe("Calculator tests:", function(){
             calc.pressDecimal();
             expect(calc.nextValue()).toContain('.');
             expect(calc.nextValue().split('.').length).toBe(2);
+        });
+        it("Decimal does nothing if number is already decimal", function(){
+            calc.pressNumber('2');
+            calc.pressDecimal();
             calc.pressDecimal();
             expect(calc.nextValue()).toContain('.');
             expect(calc.nextValue().split('.').length).toBe(2);
@@ -106,48 +112,50 @@ describe("Calculator tests:", function(){
             calc.init();
             expect(calc.nextValue()).toBe('0');
         });
-        it("GoBack", function(){
+        it("GoBack: number", function(){
             calc.pressNumber('7');
             calc.pressNumber('3');
             calc.goBack();
             expect(calc.nextValue()).toBe('7');
+        });
+        it("GoBack: decimal", function(){
             calc.pressDecimal();
             calc.goBack();
-            expect(calc.nextValue()).toBe('7');
+            expect(calc.nextValue()).toBe('0');
         });
     });
     
     describe("Conversion tests:", function(){
         let cases = [
-            ['0','0','0','0'],
-            ['8','1000','10','8'],
-            ['16','10000','20','10'],
-            ['5','101','5','5'],
-            ['100','1100100','144','64'],
-            ['123456','11110001001000000','361100','1e240'],
-            ['7777','1111001100001','17141','1e61'],
-            ['26','11010','32','1a'],
-            ['5.8','-','-','-'],
-            ['-5','-','-','-'],
+            {n:'0',bin:'0',oct:'0',hex:'0'},
+            {n:'8',bin:'1000',oct:'10',hex:'8'},
+            {n:'16',bin:'10000',oct:'20',hex:'10'},
+            {n:'5',bin:'101',oct:'5',hex:'5'},
+            {n:'100',bin:'1100100',oct:'144',hex:'64'},
+            {n:'123456',bin:'11110001001000000',oct:'361100',hex:'1e240'},
+            {n:'7777',bin:'1111001100001',oct:'17141',hex:'1e61'},
+            {n:'26',bin:'11010',oct:'32',hex:'1a'},
+            {n:'5.8',bin:'-',oct:'-',hex:'-'},
+            {n:'-5',bin:'-',oct:'-',hex:'-'},
         ];
         describe("Convert to binary:", function(){
             cases.forEach(c => {
-                it(`Bin(${c[0]})=${c[1]}`, function(){
-                    expect(convertTo(c[0],'2')).toBe(c[1]);
+                it(`Bin(${c.n})=${c.bin}`, function(){
+                    expect(convertTo(c.n,'2')).toBe(c.bin);
                 });
             });
         });
         describe("Convert to octal:", function(){
             cases.forEach(c => {
-                it(`Oct(${c[0]})=${c[2]}`, function(){
-                    expect(convertTo(c[0],'8')).toBe(c[2]);
+                it(`Oct(${c.n})=${c.oct}`, function(){
+                    expect(convertTo(c.n,'8')).toBe(c.oct);
                 });
             });
         });
         describe("Convert to hexadecimal:", function(){
             cases.forEach(c => {
-                it(`Hex(${c[0]})=${c[3]}`, function(){
-                    expect(convertTo(c[0],'16')).toBe(c[3]);
+                it(`Hex(${c.n})=${c.hex}`, function(){
+                    expect(convertTo(c.n,'16')).toBe(c.hex);
                 });
             });
         });
