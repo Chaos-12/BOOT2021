@@ -33,39 +33,18 @@ describe("Calculator tests:", function(){
     describe("Testing operations:", function(){
         describe("Regular operations", function(){
             let cases = [
-                {a:4, op:'+', b:5, r:9},
-                {a:0, op:'+', b:0, r:0},
-                {a:2, op:'+', b:-3, r:-1},
-                {a:19, op:'-', b:0, r:19},
-                {a:2, op:'-', b:2, r:0},
-                {a:-28, op:'-', b:3, r:-31},
-                {a:3, op:'x', b:6, r:18},
-                {a:-2, op:'x', b:6, r:-12},
-                {a:4.5, op:'x', b:2, r:9},
-                {a:10, op:'/', b:4, r:2.5},
-                {a:-10, op:'/', b:-4, r:2.5},
-                {a:3, op:'/', b:3, r:1},
-            ];
-            cases.forEach(c => {
-                it(`${c.a} ${c.op} ${c.b} = ${c.r}`, function(){
-                    calc.nextValue(c.a);
-                    calc.pressOperation(c.op);
-                    calc.nextValue(c.b);
-                    calc.pressOperation('=');
-                    expect(calc.currentValue()).toEqual(c.r);
-                });
-            });
-        });
-
-        describe("Conflictive cases", function(){
-            let cases = [
-                {a:0.1, op:'+', b:0.2, r:0.3},
-                {a:'1', op:'/', b:'0', r:Infinity},
-                {a:Infinity, op:'+', b:'0', r:Infinity},
-                {a:Infinity, op:'x', b:'2', r:Infinity},
-                {a:Infinity, op:'-', b:'3', r:Infinity},
-                {a:Infinity, op:'/', b:'-2', r:-Infinity},
-                {a:Infinity, op:'/', b:'0', r:Infinity},
+                {a:'4', op:'+', b:'5', r:9},
+                {a:'0', op:'+', b:'0', r:0},
+                {a:'2', op:'+', b:'-3', r:-1},
+                {a:'19', op:'-', b:'0', r:19},
+                {a:'2', op:'-', b:'2', r:0},
+                {a:'-28', op:'-', b:'3', r:-31},
+                {a:'3', op:'x', b:'6', r:18},
+                {a:'-2', op:'x', b:'6', r:-12},
+                {a:'4.5', op:'x', b:'2', r:9},
+                {a:'10', op:'/', b:'4', r:2.5},
+                {a:'-10', op:'/', b:'-4', r:2.5},
+                {a:'3', op:'/', b:'3', r:1},
             ];
             cases.forEach(c => {
                 it(`${c.a} ${c.op} ${c.b} = ${c.r}`, function(){
@@ -74,6 +53,27 @@ describe("Calculator tests:", function(){
                     calc.nextValue(c.b);
                     calc.pressOperation('=');
                     expect(calc.currentValue()).toBe(c.r);
+                });
+            });
+        });
+
+        describe("Conflictive cases", function(){
+            let cases = [
+                {a:'0.1', op:'+', b:'0.2', r:0.3},
+                {a:'1', op:'/', b:'0', r:Infinity},
+                {a:'Infinity', op:'+', b:'0', r:Infinity},
+                {a:'Infinity', op:'x', b:'2', r:Infinity},
+                {a:'Infinity', op:'-', b:'3', r:Infinity},
+                {a:'Infinity', op:'/', b:'-2', r:-Infinity},
+                {a:'Infinity', op:'/', b:'0', r:Infinity},
+            ];
+            cases.forEach(c => {
+                it(`${c.a} ${c.op} ${c.b} = ${c.r}`, function(){
+                    calc.nextValue(c.a);
+                    calc.pressOperation(c.op);
+                    calc.nextValue(c.b);
+                    calc.pressOperation('=');
+                    expect(calc.currentValue()).toEqual(c.r);
                 });
             });
         });
@@ -119,10 +119,16 @@ describe("Calculator tests:", function(){
     
     describe("Conversion tests:", function(){
         let cases = [
-            [0,'0','0','0'],
-            [8,'1000','10','8'],
-            [16,'10000','20','10'],
-            [5,'101','5','5'],
+            ['0','0','0','0'],
+            ['8','1000','10','8'],
+            ['16','10000','20','10'],
+            ['5','101','5','5'],
+            ['100','1100100','144','64'],
+            ['123456','11110001001000000','361100','1e240'],
+            ['7777','1111001100001','17141','1e61'],
+            ['26','11010','32','1a'],
+            ['5.8','-','-','-'],
+            ['-5','-','-','-'],
         ];
         describe("Convert to binary:", function(){
             cases.forEach(c => {
