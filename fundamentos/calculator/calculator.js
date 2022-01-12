@@ -1,5 +1,13 @@
 export function Calculator(outputFunction, resumeFunction) {
     let ref = this;
+    let MAX_DIGITS = 15;
+    ref.maxDigits = function(value){
+        if (value && typeof value === 'number'){
+            MAX_DIGITS = value;
+        } else {
+            return MAX_DIGITS;
+        }
+    }
     // To show the user an output/resume
     if (outputFunction && typeof(outputFunction) !== 'function'){
         throw new Error('A function is required to show the output')
@@ -51,13 +59,14 @@ export function Calculator(outputFunction, resumeFunction) {
                 decimal = true;
             }
         }
+        let output = '';
+        if (negative){
+            output = '-';
+        }
         if (!nextNumber){
-            return '0';
+            return output.concat('0');
         }
-        if (negative) {
-            return '-'.concat(nextNumber);
-        }
-        return nextNumber;
+        return output.concat(nextNumber);
     }
     let nextOperation = '+';
     ref.operation = function(value){
@@ -100,7 +109,7 @@ export function Calculator(outputFunction, resumeFunction) {
                 ref.divide(value);
                 break;
         }
-        currentNumber = Number.parseFloat(currentNumber.toPrecision(15));
+        currentNumber = Number.parseFloat(currentNumber.toPrecision(MAX_DIGITS));
         ref.resetNextNumber();
     }
     // The supported operations
@@ -121,7 +130,14 @@ export function Calculator(outputFunction, resumeFunction) {
         if (completed){
             ref.init();
         }
-        if (!Number.isNaN(value) && nextNumber.length < 9){
+        let digits = nextNumber.length;
+        if (decimal){
+            digits --;
+        }
+        if (nextNumber.length && nextNumber[0] === '0'){
+            digits --;
+        }
+        if (!Number.isNaN(value) && digits < MAX_DIGITS){
             nextNumber += value;
             ref.showOutput(ref.nextValue());
         }

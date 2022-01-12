@@ -82,14 +82,9 @@ describe("Calculator tests:", function(){
     describe("Support functionalities:", function(){
         it("Change sign", function(){
             calc.nextValue(1);
+            expect(calc.nextValue()).not.toContain('-');
             calc.changeSign();
             expect(calc.nextValue()).toContain('-');
-            calc.changeSign();
-            expect(calc.nextValue()).not.toContain('-');
-        });
-        it("Sign doesn't change if number is 0", function(){
-            calc.nextValue(0);
-            expect(calc.nextValue()).not.toContain('-');
             calc.changeSign();
             expect(calc.nextValue()).not.toContain('-');
         });
