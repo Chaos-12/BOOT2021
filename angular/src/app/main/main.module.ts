@@ -11,7 +11,7 @@ import { HomeComponent } from './home/home.component';
   exports: [
     NotificationComponent,
     CommonModule,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     CommonModule
