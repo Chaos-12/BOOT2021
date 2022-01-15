@@ -40,9 +40,9 @@ export class CalculatorComponent implements OnInit {
     this.myOutput = value;
     this.output = this.myOutput;
     if (Number.isNaN(value) || value.includes('.') || value.includes('-') || value.length > this.Precision){
-      this.binOutput = '-';
-      this.octOutput = '-';
-      this.hexOutput = '-';
+      this.binOutput = '';
+      this.octOutput = '';
+      this.hexOutput = '';
     } else {
       this.binOutput = this.convertPosIntTo(value, 2);
       this.octOutput = this.convertPosIntTo(value, 8);

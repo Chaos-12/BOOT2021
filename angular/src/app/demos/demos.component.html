@@ -1,4 +1,4 @@
-<h1>Hola {{Nombre | elipsis:20 | uppercase}}</h1>
+<h1>Hola {{Nombre | elipsis:4 | uppercase}}</h1>
 <p>
   <input type="text" [(ngModel)]="Nombre">
   <input type="button" value="saluda" (click)="saluda()" >

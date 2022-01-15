@@ -1,15 +1,15 @@
 <div class="calculator">
   <main class="screen">
-      <output class="screen__resume" type="textarea" [textContent]="resume"></output><br>
-      <output class="screen__output text-right" type="textarea" [textContent]="output"></output><br>
+      <output class="screen__resume" type="textarea" [textContent]="resume | multiplicationReplace | divisionReplace | commaReplace"></output><br>
+      <output class="screen__output text-right" type="textarea" [textContent]="output | commaReplace"></output><br>
       <input type="button" class="button__conversion" value="Conversion" (click)="pressConversion()">
       <div class="screen__conversion" [hidden] ="!showConversion">
         <label>Bin</label>
-        <output class="text-rigth" type="textarea">{{binOutput}}</output>
+        <output class="text-rigth" type="textarea">{{binOutput | spacing:4}}</output>
         <label>Oct</label>
-        <output type="textarea">{{octOutput}}</output>
+        <output type="textarea">{{octOutput | spacing:4}}</output>
         <label>Hex</label>
-        <output type="textarea">{{hexOutput}}</output>
+        <output type="textarea">{{hexOutput | uppercase | spacing:4}}</output>
       </div>
   </main>
   <menu class="button-layout">
