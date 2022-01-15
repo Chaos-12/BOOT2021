@@ -12,12 +12,14 @@ import { MainModule } from './main';
 import { SecurityModule } from './security';
 import { DemosComponent } from './demos/demos.component';
 import { DinamicoComponent } from './dinamico/dinamico.component';
+import { CalculatorComponent } from './calculator/calculator.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DemosComponent,
-    DinamicoComponent
+    DinamicoComponent,
+    CalculatorComponent
   ],
   imports: [
     BrowserModule, FormsModule,

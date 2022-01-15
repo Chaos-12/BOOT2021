@@ -1,0 +1,36 @@
+<div class="calculator">
+  <main class="screen">
+      <output class="screen__resume" type="textarea" [textContent]="resume"></output><br>
+      <output class="screen__output text-right" type="textarea" [textContent]="output"></output><br>
+      <input type="button" class="button__conversion" value="Conversion" (click)="pressConversion()">
+      <div class="screen__conversion" [hidden] ="!showConversion">
+        <label>Bin</label>
+        <output class="text-rigth" type="textarea">{{binOutput}}</output>
+        <label>Oct</label>
+        <output type="textarea">{{octOutput}}</output>
+        <label>Hex</label>
+        <output type="textarea">{{hexOutput}}</output>
+      </div>
+  </main>
+  <menu class="button-layout">
+    <input type="button" class="green" value="7" (click)="pressNumber(7)">
+    <input type="button" class="green" value="8" (click)="pressNumber(8)">
+    <input type="button" class="green" value="9" (click)="pressNumber(9)">
+    <input type="button" class="red" value="&larr;" (click)="goBack()">
+    <input type="button" class="red" value="C" (click)="init()">
+    <input type="button" class="green" value="4" (click)="pressNumber(4)">
+    <input type="button" class="green" value="5" (click)="pressNumber(5)">
+    <input type="button" class="green" value="6" (click)="pressNumber(6)">
+    <input type="button" class="blue" value="&times;" (click)="pressOperation('*')">
+    <input type="button" class="blue" value="&divide;" (click)="pressOperation('/')">
+    <input type="button" class="green" value="1" (click)="pressNumber(1)">
+    <input type="button" class="green" value="2" (click)="pressNumber(2)">
+    <input type="button" class="green" value="3" (click)="pressNumber(3)">
+    <input type="button" class="blue" value="+" (click)="pressOperation('+')">
+    <input type="button" class="blue" value="-" (click)="pressOperation('-')">
+    <input type="button" value="&PlusMinus;" (click)="changeSign()">
+    <input type="button" class="green" value="0" (click)="pressNumber(0)">
+    <input type="button" value="," (click)="pressDecimal()">
+    <input type="button" class="bigButton blue" value="=" (click)="pressOperation('=')">
+  </menu>
+</div>
