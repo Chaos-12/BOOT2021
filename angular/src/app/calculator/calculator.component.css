@@ -28,7 +28,7 @@
 
 .screen__output {
   color: white;
-  font-size: 3rem;
+  font-size: 2.2rem;
   word-wrap: break-word;
 }
 
@@ -51,6 +51,7 @@
 .screen__conversion {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  max-width: 100%;
 }
 
 .screen__conversion label {
@@ -63,13 +64,6 @@
   text-overflow: ellipsis;
   text-align: end;
   align-self: end;
-}
-
-.text-left {
-  text-align: left !important;
-}
-.text-right {
-  text-align: right !important;
 }
 
 .bigButton {

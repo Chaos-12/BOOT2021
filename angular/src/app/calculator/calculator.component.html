@@ -5,11 +5,11 @@
       <input type="button" class="button__conversion" value="Conversion" (click)="pressConversion()">
       <div class="screen__conversion" [hidden] ="!showConversion">
         <label>Bin</label>
-        <output class="text-rigth" type="textarea">{{binOutput | spacing:4}}</output>
+        <output type="textarea" [innerHTML]="binOutput|spacing:4"></output>
         <label>Oct</label>
-        <output type="textarea">{{octOutput | spacing:4}}</output>
+        <output type="textarea" [innerHTML]="octOutput|spacing:4"></output>
         <label>Hex</label>
-        <output type="textarea">{{hexOutput | uppercase | spacing:4}}</output>
+        <output type="textarea" [innerHTML]="hexOutput|uppercase|spacing:4"></output>
       </div>
   </main>
   <menu class="button-layout">
