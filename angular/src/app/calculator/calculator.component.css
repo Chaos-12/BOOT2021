@@ -59,11 +59,13 @@
 }
 
 .screen__conversion output {
-  white-space: nowrap;
-  word-wrap: break-word;
-  text-overflow: ellipsis;
   text-align: end;
   align-self: end;
+}
+
+.breakWord {
+  word-wrap: break-word !important;
+  white-space: normal !important;
 }
 
 .bigButton {

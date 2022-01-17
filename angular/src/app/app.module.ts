@@ -13,13 +13,15 @@ import { SecurityModule } from './security';
 import { DemosComponent } from './demos/demos.component';
 import { DinamicoComponent } from './dinamico/dinamico.component';
 import { CalculatorComponent } from './calculator/calculator.component';
+import { FormularioComponent } from './formulario/formulario.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DemosComponent,
     DinamicoComponent,
-    CalculatorComponent
+    CalculatorComponent,
+    FormularioComponent
   ],
   imports: [
     BrowserModule, FormsModule,

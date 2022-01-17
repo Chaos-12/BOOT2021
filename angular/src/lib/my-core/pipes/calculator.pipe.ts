@@ -42,15 +42,8 @@ export class SpacingPipe implements PipeTransform {
     }
     let extendedValue = start.concat(value);
     let array = [];
-    let blockIndex = 0;
     for (let i=0; i < nBlocks; i++){
-      if(blockIndex === 4){
-        array.push('<br>'.concat(extendedValue.slice(i*blockLength, (i+1)*blockLength)));
-        blockIndex = 0;
-      } else {
-        array.push(extendedValue.slice(i*blockLength, (i+1)*blockLength));
-      }
-      blockIndex ++;
+      array.push(extendedValue.slice(i*blockLength, (i+1)*blockLength));
     }
     return array.join(' ');
   }
