@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { CalculadoraComponent } from '../calculadora/calculadora.component';
 import { DemosComponent } from '../demos/demos.component';
-import { HomeComponent } from '../main';
-import { CalculatorComponent } from '../calculator/calculator.component';
 import { FormularioComponent } from '../formulario/formulario.component';
+import { HomeComponent } from '../main';
 
 @Component({
   selector: 'app-dinamico',
@@ -11,16 +11,16 @@ import { FormularioComponent } from '../formulario/formulario.component';
 })
 export class DinamicoComponent implements OnInit {
   menu = [
-    {texto: 'inicio', icono: '', componente: HomeComponent},
-    {texto: 'demos', icono: '', componente: DemosComponent},
-    {texto: 'calculator', icono: '', componente: CalculatorComponent},
-    {texto: 'formulario', icono: '', componente: FormularioComponent},
-  ];
-  actual: any = this.menu[2].componente;
+    { texto: 'formulario', icono: 'chalkboard-teacher', componente: FormularioComponent },
+    { texto: 'inicio', icono: 'home', componente: HomeComponent},
+    { texto: 'demos', icono: 'chalkboard-teacher', componente: DemosComponent },
+    { texto: 'calculadora', icono: 'calculator', componente: CalculadoraComponent },
+  ]
+  actual: any = this.menu[0].componente;
 
   constructor() { }
 
-  public seleccionar(indice:number):void {
+  public seleccionar(indice: number): void {
     this.actual = this.menu[indice].componente;
   }
 

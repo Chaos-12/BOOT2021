@@ -25,7 +25,7 @@ export class EsMayusculasValidator implements Validator {
 export function EsNIF(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
       if (!control.value) { return null; }
-      const err = { nif: { invalidFormat: true, invalidChar: true } };
+      const err = { nif: { invalidFormat: true, invalidChar: true, message: 'No es un nif valido' } };
       if (/^\d{1,8}\w$/.test(control.value)) {
           const letterValue = control.value.substr(control.value.length - 1);
           const numberValue = control.value.substr(0, control.value.length - 1);
@@ -64,4 +64,19 @@ export class TypeValidator implements Validator {
   }
 }
 
-export const MIS_VALIDADORES = [EsMayusculasValidator, NIFValidator, TypeValidator];
+export function NotBlankValidation(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+     return control.value?.trim() ? null : { notblank: 'No puede estar en blanco' }
+  };
+}
+
+@Directive({
+  selector: '[notblank]',
+  providers: [{ provide: NG_VALIDATORS, useExisting: NotBlankValidator, multi: true }]
+})
+export class NotBlankValidator implements Validator {
+  validate(control: AbstractControl): ValidationErrors | null {
+    return NotBlankValidation()(control);
+  }
+}
+export const MIS_VALIDADORES = [EsMayusculasValidator, NIFValidator, TypeValidator, NotBlankValidator]

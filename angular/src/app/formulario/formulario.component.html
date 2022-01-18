@@ -1,6 +1,7 @@
 <p>
   <input type="button" value="add" (click)="add()">
   <input type="button" value="edit" (click)="edit(1)">
+  <input type="button" value="listado" (click)="list()">
 </p>
 <form #miForm="ngForm">
   <p>
@@ -9,21 +10,23 @@
       <input type="number" id="id" name="id" [(ngModel)]="elemento.id" #id="ngModel" required>
       <output class="error" [hidden]="!id.hasError('required') || miForm.pristine">Es obligatorio</output>
     </ng-container>
-    <ng-container *ngIf="!isAdd">
+    <ng-container *myUnless="isAdd">
       {{elemento.id}}
     </ng-container>
     <br>
     Nombre:
     <input type="text" id="nombre" name="nombre" [(ngModel)]="elemento.nombre" #nombre="ngModel"
-      required minlength="2" maxlength="10">
-    <output class="error" [hidden]="!nombre.hasError('required')">Es obligatorio</output>
-    <output class="error" [hidden]="!nombre.hasError('minlength') && !nombre.hasError('maxlength')">
+      notblank minlength="2" maxlength="10" esmayusculas>
+    <output class="error" [show]="nombre.hasError('required')">Es obligatorio</output>
+    <output class="error" [show]="nombre.hasError('minlength') || nombre.hasError('maxlength')">
       Debe tener entre 2 y 10 letras
     </output>{{nombre.errors | json}}
+    <!-- <app-show-errors-messages [errors]="nombre.errors"></app-show-errors-messages> -->
+    <output [myShowErrors]="nombre.errors"></output>
     <br>
     Apellidos:
     <input type="text" id="apellidos" name="apellidos" [(ngModel)]="elemento.apellidos" #apellidos="ngModel"
-      minlength="2" maxlength="10">
+      minlength="2" maxlength="10" >
     <output class="error" [hidden]="!apellidos.hasError('minlength') && !apellidos.hasError('maxlength')">
       Debe tener entre 2 y 10 letras
     </output>
@@ -36,16 +39,24 @@
     </output>{{edad.errors | json}}
     <br>
     NIF:
-    <input type="text" id="nif" name="nif" [(ngModel)]="elemento.nif" #nif="ngModel" >
+    <input type="text" id="nif" name="nif" [(ngModel)]="elemento.nif" #nif="ngModel" nif >
+    <output class="error" [hidden]="!nif.hasError('nif')" >No es un nif valido</output>{{nif.errors | json}}
     <br>
     Correo:
-    <input type="email" id="email" name="email" [(ngModel)]="elemento.email" #email="ngModel" email>
-    <output class="error" [hidden]="!email.hasError('email')">
-      No es un correo valido
+    <input type="email" id="email" name="email" [(ngModel)]="elemento.email" #email="ngModel" >
+    <output class="error" [hidden]="!email.hasError('type')">
+      {{email.getError('type')}}
     </output>{{email.errors | json}}
   </p>
-  <p>
-    <input type="button" value="enviar" (click)="send()" [disabled]="miForm.invalid">
+  <p> <!-- (winConfirm)="send()" winConfirmMessage='Los datos ....' -->
+    <input type="button" value="enviar" (click)="send()" [disabled]="miForm.invalid" >
     <input type="button" value="volver" (click)="cancel()">
   </p>
 </form>
+
+<ul>
+  <li *ngFor="let item of listado">
+   <button class="btn btn-link" type="button" (click)="edit(item.id)">{{item.nombre}} {{item.apellidos}}</button>
+
+  </li>
+</ul>
